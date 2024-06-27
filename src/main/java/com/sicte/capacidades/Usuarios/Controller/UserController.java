@@ -13,7 +13,7 @@ import jakarta.validation.Valid;
 import java.util.List;
 
 
-@CrossOrigin(origins = "https://bryanutria.github.io")
+@CrossOrigin(origins = "https://BryanSicte.github.io")
 @RestController
 @RequestMapping("/user")
 public class UserController {

@@ -59,8 +59,22 @@ public class CapacidadService{
         return (List<CapacidadBackup>) capacidadBackupRepository.findAllOrderByFechaReporteDesc();
     }
 
-    public List<Capacidad> encontrarTodoCapacidad() {
-        return (List<Capacidad>) capacidadRepository.findAllOrderByFechaReporteDesc();
+    public List<Capacidad> encontrarTodoCapacidad(String role) {
+        List<Capacidad> capacidades = (List<Capacidad>) capacidadRepository.findAllOrderByFechaReporteDesc()
+        List<Capacidad> registrosCoincidentes = new ArrayList<>();
+        if (!"admin".equalsIgnoreCase(role)) {
+            registrosCoincidentes = filtrarPorRolDirectorCapacidades(capacidades, role);
+        } else {
+            registrosCoincidentes = capacidades;
+        }
+        return registrosCoincidentes;
+    }
+
+    private List<Capacidad> filtrarPorRolDirectorCapacidades(List<Capacidad> registros, String director) {
+        // Filtrar registros por la columna 'director'
+        return registros.stream()
+                .filter(capacidad -> director.equals(capacidad.getDirector()))
+                .collect(Collectors.toList());
     }
 
     public List<Movil> encontrarTodoMovil() {
@@ -133,9 +147,9 @@ public class CapacidadService{
                 registrosCoincidentes.add(capacidad);
             }
         }
-
+        
         if (!"admin".equalsIgnoreCase(role)) {
-            registrosCoincidentes = filtrarPorRolDirectorCapacidades(registrosCoincidentes, role);
+            registrosCoincidentes = filtrarPorRolDirectorCapacidadesBackup(registrosCoincidentes, role);
         }
 
         Collections.shuffle(registrosCoincidentes);
@@ -159,14 +173,21 @@ public class CapacidadService{
         }
 
         if (!"admin".equalsIgnoreCase(role)) {
-            plantasSinCapacidad = filtrarPorRolDirectorPlanta(plantasSinCapacidad, role);
+            String roll;
+            if ("JOHANA CARVAJAL".equalsIgnoreCase(role)) {
+                roll = "JOHANNA CARVAJAL";
+            } else {
+                roll = role;
+            }
+
+            plantasSinCapacidad = filtrarPorRolDirectorPlanta(plantasSinCapacidad, roll);
         }
 
         Collections.shuffle(plantasSinCapacidad);
         return plantasSinCapacidad;
     }
 
-    private List<CapacidadBackup> filtrarPorRolDirectorCapacidades(List<CapacidadBackup> registros, String director) {
+    private List<CapacidadBackup> filtrarPorRolDirectorCapacidadesBackup(List<CapacidadBackup> registros, String director) {
         // Filtrar registros por la columna 'director'
         return registros.stream()
                 .filter(capacidad -> director.equals(capacidad.getDirector()))

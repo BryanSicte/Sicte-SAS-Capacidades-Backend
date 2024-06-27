@@ -16,7 +16,7 @@ import com.sicte.capacidades.capacidad.Service.CapacidadService;
 import java.util.List;
 import java.util.Map;
 
-@CrossOrigin(origins = "https://bryanutria.github.io")
+@CrossOrigin(origins = "https://BryanSicte.github.io")
 @RestController
 @RequestMapping("/capacidad")
 public class CapacidadController {
@@ -29,9 +29,9 @@ public class CapacidadController {
         return new ResponseEntity<>(capacidades, HttpStatus.OK);
     }
 
-    @GetMapping("/Todo")
-    public ResponseEntity<List<Capacidad>> getTodaCapacidad() {
-        List<Capacidad> capacidades = capacidadService.encontrarTodoCapacidad();
+    @PostMapping("/Todo")
+    public ResponseEntity<List<Capacidad>> getTodaCapacidad(@RequestBody RoleRequest roleRequest) {
+        List<Capacidad> capacidades = capacidadService.encontrarTodoCapacidad(roleRequest.getRole());
         return new ResponseEntity<>(capacidades, HttpStatus.OK);
     }
 
