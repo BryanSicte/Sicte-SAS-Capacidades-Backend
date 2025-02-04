@@ -1,39 +1,50 @@
-package com.sicte.capacidades.Usuarios.Service;
+package com.sicte.capacidades.usuarios.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-import com.sicte.capacidades.Usuarios.Entity.User;
-import com.sicte.capacidades.Usuarios.Repository.UserRepository;
+import com.sicte.capacidades.usuarios.entity.tokens;
+import com.sicte.capacidades.usuarios.entity.user;
+import com.sicte.capacidades.usuarios.repository.tokensRepository;
+import com.sicte.capacidades.usuarios.repository.userRepository;
 
 @Service
-public class UserService{
+public class userService{
     @Autowired
-    UserRepository userRepository;
+    userRepository userRepository;
 
-    public User save(User user) {
+    @Autowired
+    tokensRepository tokensRepository;
+
+    @Autowired
+    private JavaMailSender mailSender;
+
+    public user save(user user) {
         return userRepository.save(user);
     }
 
-    public List<User> findAll() {
-        return (List<User>) userRepository.findAll();
+    public List<user> findAll() {
+        return (List<user>) userRepository.findAll();
     }
 
-    public User findByNombre(String valor) {
+    public user findByNombre(String valor) {
         return userRepository.findByNombre(valor);
     }
 
-    public User findByCorreo(String valor) {
+    public user findByCorreo(String valor) {
         return userRepository.findByCorreo(valor);
     }
 
-    public User getUserById(String id) {
+    public user getUserById(String id) {
         return userRepository.findById(id).get();
     }
 
-    public User getUserByCorreo(String correo) {
+    public user getUserByCorreo(String correo) {
         return userRepository.findByCorreo(correo);
     }
 
@@ -45,5 +56,25 @@ public class UserService{
 
             return false;
         }
+    }
+
+    public void sendEmail(String to, String subject, String body) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(to);
+        message.setSubject(subject);
+        message.setText(body);
+        mailSender.send(message);
+    }
+
+    public Optional<tokens> findByToken(String token) {
+        return tokensRepository.findByToken(token);
+    }
+
+    public List<tokens> findAllTokens() {
+        return (List<tokens>) tokensRepository.findAll();
+    }
+
+    public void actualizarContrasena(String email, String contrasena) {
+        userRepository.actualizarContrasena(email, contrasena);
     }
 }

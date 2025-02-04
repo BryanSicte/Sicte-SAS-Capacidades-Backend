@@ -1,4 +1,4 @@
-package com.sicte.capacidades.capacidad.Repository;
+package com.sicte.capacidades.capacidad.repository;
 
 import java.util.List;
 
@@ -7,41 +7,42 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.sicte.capacidades.capacidad.Entity.Capacidad;
+import com.sicte.capacidades.capacidad.entity.capacidad;
 
 import jakarta.transaction.Transactional;
 
 @Repository
-public interface CapacidadRepository extends CrudRepository<Capacidad, String> {
-    public Capacidad findByCedula (String cedula);
-    public Capacidad findByNombreCompleto (String nombreCompleto);
-    public Capacidad findByCargo (String cargo);
-    public Capacidad findByCentroCosto (String centroCosto);
-    public Capacidad findByNomina (String nomina);
-    public Capacidad findByRegional (String regional);
-    public Capacidad findByCiudadTrabajo (String ciudadTrabajo);
-    public Capacidad findByRed (String red);
-    public Capacidad findByCliente (String cliente);
-    public Capacidad findByArea (String area);
-    public Capacidad findBySubArea (String subArea);
-    public Capacidad findByCodigoSap (String codigoSap);
-    public Capacidad findByTipoDeMovil (String tipoDeMovil);
-    public Capacidad findByTipoFacturacion (String tipoFacturacion);
-    public Capacidad findByMovil (String movil);
-    public Capacidad findByCoordinador (String coordinador);
-    public Capacidad findByDirector (String director);
-    public Capacidad findByContratista (String contratista);
-    public Capacidad findByValorEsperado (String valorEsperado);
-    public Capacidad findByPlaca (String placa);
-    public Capacidad findByTipoCarro (String tipoCarro);
-    public Capacidad findByFechaReporte (String fechaReporte);
-    public Capacidad findByMes (String mes);
-    public Capacidad findByAño (String año);
-    public Capacidad findByTurnos (String turnos);
-    public Capacidad findByPersonas (String personas);
+public interface capacidadRepository extends CrudRepository<capacidad, String> {
+    public capacidad findByCedula (String cedula);
+    public capacidad findByNombreCompleto (String nombreCompleto);
+    public capacidad findByCargo (String cargo);
+    public capacidad findByCentroCosto (String centroCosto);
+    public capacidad findByNomina (String nomina);
+    public capacidad findByRegional (String regional);
+    public capacidad findByCiudadTrabajo (String ciudadTrabajo);
+    public capacidad findByRed (String red);
+    public capacidad findByCliente (String cliente);
+    public capacidad findByArea (String area);
+    public capacidad findBySubArea (String subArea);
+    public capacidad findByCodigoSap (String codigoSap);
+    public capacidad findByTipoDeMovil (String tipoDeMovil);
+    public capacidad findByTipoFacturacion (String tipoFacturacion);
+    public capacidad findByMovil (String movil);
+    public capacidad findByCoordinador (String coordinador);
+    public capacidad findByDirector (String director);
+    public capacidad findByContratista (String contratista);
+    public capacidad findByValorEsperado (String valorEsperado);
+    public capacidad findByPlaca (String placa);
+    public capacidad findByTipoCarro (String tipoCarro);
+    public capacidad findByFechaReporte (String fechaReporte);
+    public capacidad findByMes (String mes);
+    public capacidad findByAño (String año);
+    public capacidad findByTurnos (String turnos);
+    public capacidad findByPersonas (String personas);
+    public capacidad findByCarpeta (String carpeta);
 
-    @Query("SELECT c FROM Capacidad c ORDER BY c.fechaReporte DESC")
-    List<Capacidad> findAllOrderByFechaReporteDesc();
+    @Query("SELECT c FROM capacidad c ORDER BY c.fechaReporte DESC")
+    List<capacidad> findAllOrderByFechaReporteDesc();
 
     public static class RoleRequest {
         private String role;
@@ -57,7 +58,7 @@ public interface CapacidadRepository extends CrudRepository<Capacidad, String> {
 
     @Modifying
     @Transactional
-    @Query("DELETE FROM Capacidad c WHERE c.cedula = :cedula")
+    @Query("DELETE FROM capacidad c WHERE c.cedula = :cedula")
     void deleteByCedula(String cedula);
 
     // @Transactional(readOnly = true)

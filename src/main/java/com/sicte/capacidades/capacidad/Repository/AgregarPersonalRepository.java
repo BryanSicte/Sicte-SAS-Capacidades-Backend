@@ -1,16 +1,16 @@
-package com.sicte.capacidades.capacidad.Repository;
+package com.sicte.capacidades.capacidad.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.sicte.capacidades.capacidad.Entity.AgregarPersonal;
+import com.sicte.capacidades.capacidad.entity.agregarPersonal;
 
 @Repository
-public interface AgregarPersonalRepository extends CrudRepository<AgregarPersonal, String> {
-    public AgregarPersonal findByCedula (String cedula);
-    public AgregarPersonal findByCarpeta (String carpeta);
-    public AgregarPersonal findByPlaca (String placa);
-    public AgregarPersonal findByTipoFacturacion (String tipoFacturacion);
-    public AgregarPersonal findByTipoMovil (String tipoMovil);
-    public AgregarPersonal findByCoordinador (String coordinador);
+public interface agregarPersonalRepository extends CrudRepository<agregarPersonal, String> {
+    public agregarPersonal findByCedula (String cedula);
+    public agregarPersonal findByCarpeta (String carpeta);
+    public agregarPersonal findByPlaca (String placa);
+    public agregarPersonal findByTipoFacturacion (String tipoFacturacion);
+    public agregarPersonal findByTipoMovil (String tipoMovil);
+    public agregarPersonal findByCoordinador (String coordinador);
 }

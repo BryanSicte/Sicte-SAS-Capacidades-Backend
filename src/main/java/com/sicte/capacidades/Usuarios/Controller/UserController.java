@@ -1,34 +1,44 @@
-package com.sicte.capacidades.Usuarios.Controller;
+package com.sicte.capacidades.usuarios.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.sicte.capacidades.Usuarios.Entity.User;
-import com.sicte.capacidades.Usuarios.Service.UserService;
+import com.sicte.capacidades.usuarios.dto.actualizarContrasena;
+import com.sicte.capacidades.usuarios.dto.tokenUtils;
+import com.sicte.capacidades.usuarios.entity.tokens;
+import com.sicte.capacidades.usuarios.entity.user;
+import com.sicte.capacidades.usuarios.repository.tokensRepository;
+import com.sicte.capacidades.usuarios.service.userService;
 
 import jakarta.validation.Valid;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
-
-@CrossOrigin(origins = "https://BryanSicte.github.io")
+@CrossOrigin(origins = { "https://sictepowergmail.github.io/", "https://BryanSicte.github.io",
+        "http://localhost:3000" })
 @RestController
 @RequestMapping("/user")
-public class UserController {
+public class userController {
     @Autowired
-    private UserService userService;
+    private userService userService;
+
+    @Autowired
+    private tokensRepository tokensRepository;
 
     @GetMapping
-    public ResponseEntity<List<User>> getAllUsers() {
-        List<User> users = userService.findAll();
+    public ResponseEntity<List<user>> getAllUsers() {
+        List<user> users = userService.findAll();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable String id) {
-        User user = userService.getUserById(id);
+    public ResponseEntity<user> getUserById(@PathVariable String id) {
+        user user = userService.getUserById(id);
         if (user != null) {
             return new ResponseEntity<>(user, HttpStatus.OK);
         }
@@ -36,18 +46,18 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
-        User createdUser = userService.save(user);
+    public ResponseEntity<user> createUser(@Valid @RequestBody user user) {
+        user createdUser = userService.save(user);
         return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
     }
 
     @PostMapping("/login/login")
-    public ResponseEntity<User> login(@RequestBody User user) {
-        
+    public ResponseEntity<user> login(@RequestBody user user) {
+
         String correo = user.getCorreo();
         String contrasena = user.getContrasena();
 
-        User usuarioEncontrado = userService.findByCorreo(correo);
+        user usuarioEncontrado = userService.findByCorreo(correo);
         if (usuarioEncontrado == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -56,15 +66,16 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
-        // Aquí puedes agregar cualquier otra lógica que necesites, por ejemplo, generar un token de autenticación
-        
+        // Aquí puedes agregar cualquier otra lógica que necesites, por ejemplo, generar
+        // un token de autenticación
+
         return ResponseEntity.ok(usuarioEncontrado);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable String id, @RequestBody User user) {
+    public ResponseEntity<user> updateUser(@PathVariable String id, @RequestBody user user) {
         user.setId(id);
-        User updatedUser = userService.save(user);
+        user updatedUser = userService.save(user);
         if (updatedUser != null) {
             return new ResponseEntity<>(updatedUser, HttpStatus.OK);
         }
@@ -94,5 +105,67 @@ public class UserController {
             return new ResponseEntity<>("{\"status\":404,\"message\":\"Usuario no encontrado\"}", HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(userService.findByCorreo(valor), HttpStatus.OK);
+    }
+
+    @PostMapping("/enviarToken")
+    public String sendResetToken(@RequestBody Map<String, String> payload) {
+        // Generar token y fecha de expiración
+        String token = tokenUtils.generateToken();
+        Date expiryDate = tokenUtils.calculateExpiryDate(30); // Token válido por 30 minutos
+        String email = payload.get("email");
+
+        // Guardar token en la base de datos
+        tokens resetToken = new tokens();
+        resetToken.setToken(token);
+        resetToken.setEmail(email);
+        resetToken.setExpiryDate(expiryDate);
+        tokensRepository.save(resetToken);
+
+        // Enviar correo con el token
+        String resetLink = "https://sictepowergmail.github.io/ReportingCenter/#/RecuperarContrasena?token=" + token;
+        userService.sendEmail(email, "Restablecer Contraseña",
+                "Haz clic en el siguiente enlace para restablecer tu contraseña:\n" + resetLink);
+
+        return "Correo enviado exitosamente.";
+    }
+
+    @GetMapping("/validarToken")
+    public String validateToken(@RequestParam String token) {
+        Optional<tokens> optionalToken = userService.findByToken(token); // Cambiar tokenUtils a tokens
+
+        if (optionalToken.isEmpty()) {
+            return "Token inválido.";
+        }
+
+        tokens resetToken = optionalToken.get(); // Cambiar tokenUtils a tokens
+
+        if (resetToken.getExpiryDate().before(new Date())) { // Esto debería funcionar si getExpiryDate está en la clase
+                                                             // tokens
+            return "Token expirado";
+        }
+
+        return "Token valido";
+    }
+
+    @GetMapping("/tokens")
+    public ResponseEntity<List<tokens>> getAllTokens() {
+        List<tokens> tokens = userService.findAllTokens();
+        return new ResponseEntity<>(tokens, HttpStatus.OK);
+    }
+
+    @PostMapping("/actualizarContrasena")
+    public ResponseEntity<String> actualizarContrasena(
+            @RequestBody actualizarContrasena request) {
+        try {
+            String email = request.getEmail();
+            String contrasena = request.getContrasena();
+
+            userService.actualizarContrasena(email, contrasena);
+
+            return ResponseEntity.ok("Contrasena actualizada correctamente");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al actualizar el estado");
+        }
     }
 }

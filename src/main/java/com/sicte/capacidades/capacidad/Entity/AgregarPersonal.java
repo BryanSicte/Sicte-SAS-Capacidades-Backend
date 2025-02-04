@@ -1,4 +1,4 @@
-package com.sicte.capacidades.capacidad.Entity;
+package com.sicte.capacidades.capacidad.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,7 +13,7 @@ import jakarta.persistence.Id;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class AgregarPersonal {
+public class agregarPersonal {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

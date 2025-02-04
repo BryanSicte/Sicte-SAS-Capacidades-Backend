@@ -1,4 +1,4 @@
-package com.sicte.capacidades.capacidad.Entity;
+package com.sicte.capacidades.capacidad.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,7 +16,7 @@ import jakarta.persistence.Table;
 @Table(name = "coordinador")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Coordinador {
+public class coordinador {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;

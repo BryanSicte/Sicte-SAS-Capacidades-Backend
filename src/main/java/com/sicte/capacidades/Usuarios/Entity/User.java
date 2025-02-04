@@ -1,4 +1,4 @@
-package com.sicte.capacidades.Usuarios.Entity;
+package com.sicte.capacidades.usuarios.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,7 +18,7 @@ import jakarta.validation.constraints.NotNull;
 @Table(name = "user")
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class user {
     // @Id
     // @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

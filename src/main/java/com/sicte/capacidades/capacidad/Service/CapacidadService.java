@@ -1,4 +1,4 @@
-package com.sicte.capacidades.capacidad.Service;
+package com.sicte.capacidades.capacidad.service;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -18,50 +18,55 @@ import java.time.YearMonth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sicte.capacidades.capacidad.Entity.AgregarPersonal;
-import com.sicte.capacidades.capacidad.Entity.Capacidad;
-import com.sicte.capacidades.capacidad.Entity.CapacidadBackup;
-import com.sicte.capacidades.capacidad.Entity.Ciudad;
-import com.sicte.capacidades.capacidad.Entity.Coordinador;
-import com.sicte.capacidades.capacidad.Entity.Movil;
-import com.sicte.capacidades.capacidad.Entity.Planta;
-import com.sicte.capacidades.capacidad.Repository.CapacidadBackupRepository;
-import com.sicte.capacidades.capacidad.Repository.CapacidadRepository;
-import com.sicte.capacidades.capacidad.Repository.CiudadRepository;
-import com.sicte.capacidades.capacidad.Repository.CoordinadorRepository;
-import com.sicte.capacidades.capacidad.Repository.MovilRepository;
-import com.sicte.capacidades.capacidad.Repository.PlantaRepository;
+import com.sicte.capacidades.capacidad.dto.cedulaNombreDto;
+import com.sicte.capacidades.capacidad.entity.agregarPersonal;
+import com.sicte.capacidades.capacidad.entity.capacidad;
+import com.sicte.capacidades.capacidad.entity.capacidadBackup;
+import com.sicte.capacidades.capacidad.entity.ciudad;
+import com.sicte.capacidades.capacidad.entity.coordinador;
+import com.sicte.capacidades.capacidad.entity.movil;
+import com.sicte.capacidades.capacidad.entity.planta;
+import com.sicte.capacidades.capacidad.entity.plantaEnLinea;
+import com.sicte.capacidades.capacidad.repository.capacidadBackupRepository;
+import com.sicte.capacidades.capacidad.repository.capacidadRepository;
+import com.sicte.capacidades.capacidad.repository.ciudadRepository;
+import com.sicte.capacidades.capacidad.repository.coordinadorRepository;
+import com.sicte.capacidades.capacidad.repository.movilRepository;
+import com.sicte.capacidades.capacidad.repository.plantaEnLineaRepository;
+import com.sicte.capacidades.capacidad.repository.plantaRepository;
 
 @Service
-public class CapacidadService{
+public class capacidadService{
     @Autowired
-    CapacidadBackupRepository capacidadBackupRepository;
+    capacidadBackupRepository capacidadBackupRepository;
     @Autowired
-    CapacidadRepository capacidadRepository;
+    capacidadRepository capacidadRepository;
     @Autowired
-    PlantaRepository plantaRepository;
+    plantaRepository plantaRepository;
     @Autowired
-    CiudadRepository ciudadRepository;
+    plantaEnLineaRepository plantaEnLineaRepository;
     @Autowired
-    CoordinadorRepository coordinadorRepository;
+    ciudadRepository ciudadRepository;
     @Autowired
-    MovilRepository movilRepository;
+    coordinadorRepository coordinadorRepository;
+    @Autowired
+    movilRepository movilRepository;
 
-    public CapacidadBackup save(CapacidadBackup capacidad) {
+    public capacidadBackup save(capacidadBackup capacidad) {
         return capacidadBackupRepository.save(capacidad);
     }
 
-    public Capacidad guardarCapacidad(Capacidad capacidad) {
+    public capacidad guardarCapacidad(capacidad capacidad) {
         return capacidadRepository.save(capacidad);
     }
 
-    public List<CapacidadBackup> encontrarTodoCapacidadBackup() {
-        return (List<CapacidadBackup>) capacidadBackupRepository.findAllOrderByFechaReporteDesc();
+    public List<capacidadBackup> encontrarTodoCapacidadBackup() {
+        return (List<capacidadBackup>) capacidadBackupRepository.findAllOrderByFechaReporteDesc();
     }
 
-    public List<Capacidad> encontrarTodoCapacidad(String role) {
-        List<Capacidad> capacidades = (List<Capacidad>) capacidadRepository.findAllOrderByFechaReporteDesc()
-        List<Capacidad> registrosCoincidentes = new ArrayList<>();
+    public List<capacidad> encontrarTodoCapacidad(String role) {
+        List<capacidad> capacidades = (List<capacidad>) capacidadRepository.findAllOrderByFechaReporteDesc();
+        List<capacidad> registrosCoincidentes = new ArrayList<>();
         if (!"admin".equalsIgnoreCase(role)) {
             registrosCoincidentes = filtrarPorRolDirectorCapacidades(capacidades, role);
         } else {
@@ -70,28 +75,40 @@ public class CapacidadService{
         return registrosCoincidentes;
     }
 
-    private List<Capacidad> filtrarPorRolDirectorCapacidades(List<Capacidad> registros, String director) {
+    private List<capacidad> filtrarPorRolDirectorCapacidades(List<capacidad> registros, String director) {
         // Filtrar registros por la columna 'director'
         return registros.stream()
                 .filter(capacidad -> director.equals(capacidad.getDirector()))
                 .collect(Collectors.toList());
     }
 
-    public List<Movil> encontrarTodoMovil() {
-        return (List<Movil>) movilRepository.findAll();
+    public List<movil> encontrarTodoMovil() {
+        return (List<movil>) movilRepository.findAll();
     }
 
-    public List<Planta> encontrarTodoPlanta() {
-        return (List<Planta>) plantaRepository.findAll();
+    public List<coordinador> encontrarTodoCoordinador() {
+        return (List<coordinador>) coordinadorRepository.findAll();
+    } 
+
+    public List<planta> encontrarTodoPlanta() {
+        return (List<planta>) plantaRepository.findAll();
     }
 
-    public List<CapacidadBackup> encontrarTodoUltimoMes() {
+    public List<plantaEnLinea> encontrarTodoPlantaEnLinea() {
+        return (List<plantaEnLinea>) plantaEnLineaRepository.findAll();
+    }
+
+    public List<cedulaNombreDto> encontrarCedulaYNombrePlantaEnLinea() {
+        return plantaEnLineaRepository.findCedulaAndNombre();
+    }
+
+    public List<capacidadBackup> encontrarTodoUltimoMes() {
         // Obtener todos los registros
-        List<CapacidadBackup> todosLosRegistros = (List<CapacidadBackup>) capacidadBackupRepository.findAllOrderByFechaReporteDesc();
+        List<capacidadBackup> todosLosRegistros = (List<capacidadBackup>) capacidadBackupRepository.findAllOrderByFechaReporteDesc();
 
         // Encontrar el último mes presente en los datos
         Optional<LocalDate> ultimaFecha = todosLosRegistros.stream()
-            .map(CapacidadBackup::getFechaReporte)
+            .map(capacidadBackup::getFechaReporte)
             .map(this::parseLocalDate) // Convertir las cadenas de fecha a LocalDate
             .max(Comparator.naturalOrder());
 
@@ -125,24 +142,24 @@ public class CapacidadService{
         return LocalDate.parse(fecha, formatter);
     }
 
-    public List<CapacidadBackup> encontrarTodoContinuaEnPlanta(String role) {
-        List<Planta> todosLosRegistrosPlanta = (List<Planta>) plantaRepository.findAll();
-        List<Capacidad> capacidades = (List<Capacidad>) capacidadRepository.findAll();
-        Map<String, CapacidadBackup> capacidadPorCedula = new HashMap<String, CapacidadBackup>();
+    public List<capacidadBackup> encontrarTodoContinuaEnPlanta(String role) {
+        List<planta> todosLosRegistrosPlanta = (List<planta>) plantaRepository.findAll();
+        List<capacidad> capacidades = (List<capacidad>) capacidadRepository.findAll();
+        Map<String, capacidadBackup> capacidadPorCedula = new HashMap<String, capacidadBackup>();
         
-        List<CapacidadBackup> todasLasCapacidades = (List<CapacidadBackup>) encontrarTodoUltimoMes();
-        for (CapacidadBackup capacidad : todasLasCapacidades) {
+        List<capacidadBackup> todasLasCapacidades = (List<capacidadBackup>) encontrarTodoUltimoMes();
+        for (capacidadBackup capacidad : todasLasCapacidades) {
             capacidadPorCedula.put(capacidad.getCedula(), capacidad);
         }
 
         List<String> cedulasExistentes = new ArrayList<>();
-        for (Capacidad capacidad : capacidades) {
+        for (capacidad capacidad : capacidades) {
             cedulasExistentes.add(capacidad.getCedula());
         }
 
-        List<CapacidadBackup> registrosCoincidentes = new ArrayList<>();
-        for (Planta planta : todosLosRegistrosPlanta) {
-            CapacidadBackup capacidad = capacidadPorCedula.get(planta.getNit());
+        List<capacidadBackup> registrosCoincidentes = new ArrayList<>();
+        for (planta planta : todosLosRegistrosPlanta) {
+            capacidadBackup capacidad = capacidadPorCedula.get(planta.getNit());
             if (capacidad != null && !cedulasExistentes.contains(capacidad.getCedula())) {
                 registrosCoincidentes.add(capacidad);
             }
@@ -156,17 +173,17 @@ public class CapacidadService{
         return registrosCoincidentes;
     }
 
-    public List<Planta> encontrarPlantasSinCapacidad(String role) {
-        List<Planta> todosLosRegistrosPlanta = (List<Planta>) plantaRepository.findAll();
-        List<Capacidad> capacidades = (List<Capacidad>) capacidadRepository.findAll();
+    public List<planta> encontrarPlantasSinCapacidad(String role) {
+        List<planta> todosLosRegistrosPlanta = (List<planta>) plantaRepository.findAll();
+        List<capacidad> capacidades = (List<capacidad>) capacidadRepository.findAll();
 
         List<String> cedulasExistentes = new ArrayList<>();
-        for (Capacidad capacidad : capacidades) {
+        for (capacidad capacidad : capacidades) {
             cedulasExistentes.add(capacidad.getCedula());
         }
 
-        List<Planta> plantasSinCapacidad = new ArrayList<>();
-        for (Planta planta : todosLosRegistrosPlanta) {
+        List<planta> plantasSinCapacidad = new ArrayList<>();
+        for (planta planta : todosLosRegistrosPlanta) {
             if (!cedulasExistentes.contains(planta.getNit())) {
                 plantasSinCapacidad.add(planta);
             }
@@ -187,14 +204,14 @@ public class CapacidadService{
         return plantasSinCapacidad;
     }
 
-    private List<CapacidadBackup> filtrarPorRolDirectorCapacidadesBackup(List<CapacidadBackup> registros, String director) {
+    private List<capacidadBackup> filtrarPorRolDirectorCapacidadesBackup(List<capacidadBackup> registros, String director) {
         // Filtrar registros por la columna 'director'
         return registros.stream()
                 .filter(capacidad -> director.equals(capacidad.getDirector()))
                 .collect(Collectors.toList());
     }
 
-    private List<Planta> filtrarPorRolDirectorPlanta(List<Planta> plantas, String director) {
+    private List<planta> filtrarPorRolDirectorPlanta(List<planta> plantas, String director) {
         // Implementa la lógica de filtrado basada en el rol del director aquí
         // Este es un método de ejemplo
         return plantas.stream()
@@ -202,18 +219,18 @@ public class CapacidadService{
                 .collect(Collectors.toList());
     }
 
-    public List<CapacidadBackup> encontrarTodoNoContinuaEnPlanta() {
-        List<Planta> todosLosRegistrosPlanta = (List<Planta>) plantaRepository.findAll();
-        List<CapacidadBackup> capacidadesNoCoincidentes = new ArrayList<>();
+    public List<capacidadBackup> encontrarTodoNoContinuaEnPlanta() {
+        List<planta> todosLosRegistrosPlanta = (List<planta>) plantaRepository.findAll();
+        List<capacidadBackup> capacidadesNoCoincidentes = new ArrayList<>();
         Set<String> cedulasAgregadas = new HashSet<>();
 
         // Obtener todos los NITs de la planta
         Set<String> nitsPlanta = todosLosRegistrosPlanta.stream()
-                                                        .map(Planta::getNit)
+                                                        .map(planta::getNit)
                                                         .collect(Collectors.toSet());
 
         // Encontrar las capacidades que no tienen un NIT correspondiente en la planta
-        for (CapacidadBackup capacidad : capacidadBackupRepository.findAllOrderByFechaReporteDesc()) {
+        for (capacidadBackup capacidad : capacidadBackupRepository.findAllOrderByFechaReporteDesc()) {
             String cedula = capacidad.getCedula();
             if (!nitsPlanta.contains(cedula) && !cedulasAgregadas.contains(cedula)) {
                 capacidadesNoCoincidentes.add(capacidad);
@@ -226,20 +243,68 @@ public class CapacidadService{
         return capacidadesNoCoincidentes;
     }
 
+    public Map<String, Object> obtenerInformacionValidarPersonal (agregarPersonal personal) {
+        System.err.println(personal);
+        planta informacionPlanta = plantaRepository.findByNit(personal.getCedula());
+        System.err.println(informacionPlanta);
+        ciudad informacionCiudad = ciudadRepository.findByCiudad(informacionPlanta.getCiudad());
+        System.err.println(informacionCiudad);
+        coordinador informacionCoordinador = coordinadorRepository.findByCoordinador(personal.getCoordinador());
+        System.err.println(informacionCoordinador);
+        movil informacionMovil = movilRepository.findByTipoMovil(personal.getTipoMovil());
+        System.err.println(informacionMovil);
+        String fechaReporteStr = obtenerFechaReporte();
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("cedula", personal.getCedula());
+        response.put("nombre", informacionPlanta.getNombre());
+        response.put("cargo", informacionPlanta.getCargo());
+
+        String cc = informacionPlanta.getCc();
+        String scc = informacionPlanta.getScc();
+        String numeroUnificado = "";
+        if (cc.length() == 2) {
+            String sccStr = String.format("%03d", Integer.parseInt(scc));        
+            numeroUnificado = cc + sccStr;
+        } else if (cc.length() == 1) {
+            String sccStr = String.format("%04d", Integer.parseInt(scc));        
+            numeroUnificado = cc + sccStr;
+        }
+        
+        response.put("centroCosto", numeroUnificado);
+        response.put("nomina", informacionPlanta.getPerfil());
+        response.put("regional", informacionCiudad.getRegional());
+        response.put("ciudad", informacionPlanta.getCiudad());
+        response.put("red", informacionCoordinador.getRed());
+        response.put("cliente", informacionCoordinador.getCliente());
+        response.put("area", informacionCoordinador.getArea());
+        response.put("subarea", informacionCoordinador.getSubarea());
+        response.put("tipoMovil", personal.getTipoMovil());
+        response.put("tipoFacturacion", personal.getTipoFacturacion());
+        response.put("movil", informacionMovil.getMovil());
+        response.put("coordinador", personal.getCoordinador());
+        response.put("director", informacionCoordinador.getDirector());
+        response.put("valorEsperado", informacionMovil.getValorEsperado());
+        response.put("placa", personal.getPlaca());
+        response.put("fechaReporte", fechaReporteStr);
+
+        LocalDateTime fechaReporte = LocalDateTime.parse(fechaReporteStr, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
+        response.put("mes", fechaReporte.getMonthValue());
+        response.put("año", fechaReporte.getYear());
+        response.put("turnos", informacionMovil.getTurnos());
+        response.put("personas", informacionMovil.getPersonas());
+
+        response.put("carpeta", personal.getCarpeta());
+        
+        return response;
+    }
+
     public String obtenerFechaReporte() {
         LocalDateTime hoy = LocalDateTime.now();
-        int diaHoy = hoy.getDayOfMonth();
-        int mesHoy = hoy.getMonthValue();
-    
-        LocalDateTime fechaReporte;
-    
-        if (diaHoy >= 20 || (diaHoy <= 5 && mesHoy == 1)) {
-            // Reportan entre el 20 y el fin de mes, o entre el 1 y el 5 de enero
-            fechaReporte = hoy.withDayOfMonth(1).plusMonths(1);
-        } else {
-            // Reportan entre el 1 y el 19 de cualquier mes (excepto enero)
-            fechaReporte = hoy.withDayOfMonth(1);
-        }
+        
+        // Siempre obtener el primer día del mes actual
+        LocalDateTime fechaReporte = hoy.withDayOfMonth(1);
     
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return fechaReporte.format(formatter);
@@ -249,15 +314,15 @@ public class CapacidadService{
         capacidadRepository.deleteByCedula(cedula);
     }
 
-    public Map<String, Object> obtenerInformacionAgregarPersonal (AgregarPersonal personal) {
+    public Map<String, Object> obtenerInformacionAgregarPersonal (agregarPersonal personal) {
         System.err.println(personal);
-        Planta informacionPlanta = plantaRepository.findByNit(personal.getCedula());
+        planta informacionPlanta = plantaRepository.findByNit(personal.getCedula());
         System.err.println(informacionPlanta);
-        Ciudad informacionCiudad = ciudadRepository.findByCiudad(informacionPlanta.getCiudad());
+        ciudad informacionCiudad = ciudadRepository.findByCiudad(informacionPlanta.getCiudad());
         System.err.println(informacionCiudad);
-        Coordinador informacionCoordinador = coordinadorRepository.findByCoordinador(personal.getCoordinador());
+        coordinador informacionCoordinador = coordinadorRepository.findByCoordinador(personal.getCoordinador());
         System.err.println(informacionCoordinador);
-        Movil informacionMovil = movilRepository.findByTipoMovil(personal.getTipoMovil());
+        movil informacionMovil = movilRepository.findByTipoMovil(personal.getTipoMovil());
         System.err.println(informacionMovil);
         String fechaReporteStr = obtenerFechaReporteAgregar();
 
@@ -308,18 +373,9 @@ public class CapacidadService{
 
     public String obtenerFechaReporteAgregar() {
         LocalDateTime hoy = LocalDateTime.now();
-        int diaHoy = hoy.getDayOfMonth();
-        int mesHoy = hoy.getMonthValue();
-    
-        LocalDateTime fechaReporte;
-    
-        if (diaHoy >= 20 || (diaHoy <= 5 && mesHoy == 1)) {
-            // Reportan entre el 20 y el fin de mes, o entre el 1 y el 5 de enero
-            fechaReporte = hoy.withDayOfMonth(2).plusMonths(1);
-        } else {
-            // Reportan entre el 1 y el 19 de cualquier mes (excepto enero)
-            fechaReporte = hoy.withDayOfMonth(2);
-        }
+        
+        // Siempre obtener el primer día del mes actual
+        LocalDateTime fechaReporte = hoy.withDayOfMonth(2);
     
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return fechaReporte.format(formatter);

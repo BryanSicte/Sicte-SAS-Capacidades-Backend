@@ -1,20 +1,31 @@
-package com.sicte.capacidades.Usuarios.Repository;
+package com.sicte.capacidades.usuarios.repository;
 
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import com.sicte.capacidades.Usuarios.Entity.User;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.sicte.capacidades.usuarios.entity.user;
 
 @Repository
-public interface UserRepository extends CrudRepository<User, String> {
-    public User findByNombre(String nombre);
-    public User findByCorreo(String correo);
-    public User findByCedula(String cedula);
-    public User findByRol(String rol);
-    public User findByTelefono(String telefono);
-    public User findByContrasena(String contrasena);
+public interface userRepository extends CrudRepository<user, String> {
+    public user findByNombre(String nombre);
 
-    // @Transactional(readOnly = true)
-    // @Query(value = "select * from users where name like %:nombre%", nativeQuery = true)
-    // public List<User3> findByNombrePartialManual(@Param("nombre") String nombre);
+    public user findByCorreo(String correo);
+
+    public user findByCedula(String cedula);
+
+    public user findByRol(String rol);
+
+    public user findByTelefono(String telefono);
+
+    public user findByContrasena(String contrasena);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE user s SET s.contrasena = :contrasena WHERE s.correo = :email")
+    void actualizarContrasena(@Param("email") String email, @Param("contrasena") String contrasena);
 
 }

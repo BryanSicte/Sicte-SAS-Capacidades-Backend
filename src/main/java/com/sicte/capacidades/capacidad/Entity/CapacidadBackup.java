@@ -1,4 +1,4 @@
-package com.sicte.capacidades.capacidad.Entity;
+package com.sicte.capacidades.capacidad.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,7 +17,7 @@ import jakarta.persistence.Table;
 @Table(name = "capacidades_backup")
 @NoArgsConstructor
 @AllArgsConstructor
-public class CapacidadBackup {
+public class capacidadBackup {
     // @Id
     // @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -76,4 +76,6 @@ public class CapacidadBackup {
     private String turnos;
     @Column(name = "PERSONAS")
     private String personas;
+    @Column(name = "CARPETA")
+    private String carpeta;
 }

@@ -1,16 +1,16 @@
-package com.sicte.capacidades.capacidad.Repository;
+package com.sicte.capacidades.capacidad.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.sicte.capacidades.capacidad.Entity.Coordinador;
+import com.sicte.capacidades.capacidad.entity.coordinador;
 
 @Repository
-public interface CoordinadorRepository extends CrudRepository<Coordinador, String> {
-    public Coordinador findByCoordinador (String coordinador);
-    public Coordinador findByDirector (String director);
-    public Coordinador findByRed (String red);
-    public Coordinador findByArea (String area);
-    public Coordinador findBySubarea (String subarea);
-    public Coordinador findByCliente (String cliente);
+public interface coordinadorRepository extends CrudRepository<coordinador, String> {
+    public coordinador findByCoordinador (String coordinador);
+    public coordinador findByDirector (String director);
+    public coordinador findByRed (String red);
+    public coordinador findByArea (String area);
+    public coordinador findBySubarea (String subarea);
+    public coordinador findByCliente (String cliente);
 }
