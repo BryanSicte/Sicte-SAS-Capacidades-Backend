@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
 
-@CrossOrigin(origins = { "https://sictepowergmail.github.io/", "https://BryanSicte.github.io",
+@CrossOrigin(origins = { "https://sictepowergmail.github.io/", "https://BryanSicte.github.io", "https://bryanutria.github.io/",
         "http://localhost:3000" })
 @RestController
 @RequestMapping("/reporteMaterialFerretero")

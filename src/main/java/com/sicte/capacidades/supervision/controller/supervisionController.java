@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
 
-@CrossOrigin(origins = {"https://sictepowergmail.github.io/","https://BryanSicte.github.io","http://localhost:3000"})
+@CrossOrigin(origins = {"https://sictepowergmail.github.io/","https://BryanSicte.github.io","http://localhost:3000","https://bryanutria.github.io/"})
 @RestController
 @RequestMapping("/supervision")
 public class supervisionController {

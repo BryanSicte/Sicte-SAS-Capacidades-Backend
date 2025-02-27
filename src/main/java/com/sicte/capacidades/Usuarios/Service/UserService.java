@@ -8,15 +8,21 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import com.sicte.capacidades.usuarios.entity.pagesUser;
 import com.sicte.capacidades.usuarios.entity.tokens;
 import com.sicte.capacidades.usuarios.entity.user;
+import com.sicte.capacidades.usuarios.repository.pagesUserRepository;
 import com.sicte.capacidades.usuarios.repository.tokensRepository;
 import com.sicte.capacidades.usuarios.repository.userRepository;
 
 @Service
 public class userService{
+
     @Autowired
     userRepository userRepository;
+
+    @Autowired 
+    pagesUserRepository pagesUserRepository; 
 
     @Autowired
     tokensRepository tokensRepository;
@@ -76,5 +82,13 @@ public class userService{
 
     public void actualizarContrasena(String email, String contrasena) {
         userRepository.actualizarContrasena(email, contrasena);
+    }
+
+    public List<pagesUser> findAllPagesUser() {
+        return (List<pagesUser>) pagesUserRepository.findAll();
+    }
+
+    public pagesUser savePagesUser(pagesUser pagesUser) {
+        return pagesUserRepository.save(pagesUser);
     }
 }

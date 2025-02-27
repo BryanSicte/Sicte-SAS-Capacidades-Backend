@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.sicte.capacidades.usuarios.dto.actualizarContrasena;
 import com.sicte.capacidades.usuarios.dto.tokenUtils;
+import com.sicte.capacidades.usuarios.entity.pagesUser;
 import com.sicte.capacidades.usuarios.entity.tokens;
 import com.sicte.capacidades.usuarios.entity.user;
 import com.sicte.capacidades.usuarios.repository.tokensRepository;
@@ -19,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-@CrossOrigin(origins = { "https://sictepowergmail.github.io/", "https://BryanSicte.github.io",
+@CrossOrigin(origins = { "https://sictepowergmail.github.io/", "https://BryanSicte.github.io", "https://bryanutria.github.io/",
         "http://localhost:3000" })
 @RestController
 @RequestMapping("/user")
@@ -167,5 +168,21 @@ public class userController {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al actualizar el estado");
         }
+    }
+
+    @GetMapping("/pagesUser")
+    public ResponseEntity<List<pagesUser>> getAllPagesUser() {
+        List<pagesUser> pagesUsers = userService.findAllPagesUser();
+        return new ResponseEntity<>(pagesUsers, HttpStatus.OK);
+    }
+
+    @PutMapping("/pagesUser/{id}")
+    public ResponseEntity<pagesUser> updatePagesUser(@PathVariable Long id, @RequestBody pagesUser pagesUser) {
+        pagesUser.setId(id);
+        pagesUser updatedPagesUser = userService.savePagesUser(pagesUser);
+        if (updatedPagesUser != null) {
+            return new ResponseEntity<>(updatedPagesUser, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }

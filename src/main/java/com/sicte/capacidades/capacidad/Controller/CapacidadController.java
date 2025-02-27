@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.lang.reflect.Field;
 
-@CrossOrigin(origins = {"https://sictepowergmail.github.io/","https://BryanSicte.github.io","http://localhost:3000"})
+@CrossOrigin(origins = {"https://sictepowergmail.github.io/","https://BryanSicte.github.io","http://localhost:3000", "https://bryanutria.github.io/"})
 @RestController
 @RequestMapping("/capacidad")
 public class capacidadController {
