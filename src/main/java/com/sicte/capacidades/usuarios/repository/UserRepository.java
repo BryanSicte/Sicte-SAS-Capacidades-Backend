@@ -26,6 +26,6 @@ public interface UserRepository extends CrudRepository<User, String> {
     @Modifying
     @Transactional
     @Query("UPDATE User s SET s.contrasena = :contrasena WHERE s.correo = :email")
-    void ActualizarContrasena(@Param("email") String email, @Param("contrasena") String contrasena);
+    void actualizarContrasena(@Param("email") String email, @Param("contrasena") String contrasena);
 
 }
