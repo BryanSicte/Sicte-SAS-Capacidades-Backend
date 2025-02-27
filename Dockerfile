@@ -5,5 +5,5 @@ RUN mvn clean package -DskipTests
 
 FROM openjdk:17
 WORKDIR /app
-COPY target/*.war app.war
+COPY --from=build /app/target/*.war app.war
 CMD ["java", "-jar", "app.war"]
