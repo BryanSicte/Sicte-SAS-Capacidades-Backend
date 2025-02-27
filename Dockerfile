@@ -1,14 +1,9 @@
-# Imagen base de OpenJDK
-FROM eclipse-temurin:17-jdk
-
-# Establecer el directorio de trabajo
+FROM maven:3.8.6-openjdk-17 AS build
 WORKDIR /app
+COPY . .
+RUN mvn clean package -DskipTests
 
-# Copiar el archivo JAR generado
-COPY target/*.jar app.jar
-
-# Definir el puerto (Render lo asigna dinámicamente)
-ENV PORT=8080
-
-# Comando para ejecutar la aplicación
-CMD ["java", "-jar", "app.jar"]
+FROM openjdk:17
+WORKDIR /app
+COPY target/*.war app.war
+CMD ["java", "-jar", "app.war"]
