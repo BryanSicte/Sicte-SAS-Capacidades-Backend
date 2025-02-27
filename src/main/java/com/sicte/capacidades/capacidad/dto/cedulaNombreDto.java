@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class cedulaNombreDto {
+public class CedulaNombreDto {
     private String nit;
     private String nombre;
 }

@@ -16,7 +16,7 @@ import jakarta.persistence.Table;
 @Table(name = "movil")
 @NoArgsConstructor
 @AllArgsConstructor
-public class movil {
+public class Movil {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;

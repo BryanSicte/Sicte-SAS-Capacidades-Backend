@@ -18,7 +18,7 @@ import jakarta.validation.constraints.NotNull;
 @Table(name = "user")
 @NoArgsConstructor
 @AllArgsConstructor
-public class user {
+public class User {
     // @Id
     // @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

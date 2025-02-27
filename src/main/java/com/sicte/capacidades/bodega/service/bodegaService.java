@@ -5,23 +5,23 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sicte.capacidades.bodega.entity.kgprod;
-import com.sicte.capacidades.bodega.entity.lconsum;
-import com.sicte.capacidades.bodega.repository.kgprodRepository;
-import com.sicte.capacidades.bodega.repository.lconsumRepository;
+import com.sicte.capacidades.bodega.entity.Kgprod;
+import com.sicte.capacidades.bodega.entity.Lconsum;
+import com.sicte.capacidades.bodega.repository.KgprodRepository;
+import com.sicte.capacidades.bodega.repository.LconsumRepository;
 
 @Service
-public class bodegaService{
+public class BodegaService{
     @Autowired
-    kgprodRepository kgprodRepository;
+    KgprodRepository kgprodRepository;
     @Autowired
-    lconsumRepository lconsumRepository;
+    LconsumRepository lconsumRepository;
 
-    public List<kgprod> findAllKgprod() {
-        return (List<kgprod>) kgprodRepository.findAll();
+    public List<Kgprod> findAllKgprod() {
+        return (List<Kgprod>) kgprodRepository.findAll();
     }
 
-    public List<lconsum> findAllLconsum() {
-        return (List<lconsum>) lconsumRepository.findAll();
+    public List<Lconsum> findAllLconsum() {
+        return (List<Lconsum>) lconsumRepository.findAll();
     }
 }

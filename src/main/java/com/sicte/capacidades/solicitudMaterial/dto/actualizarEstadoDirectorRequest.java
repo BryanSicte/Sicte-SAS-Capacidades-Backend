@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class actualizarEstadoDirectorRequest {
+public class ActualizarEstadoDirectorRequest {
     private List<Long> ids;
     private String estado;
     private String observacionesTemporal;

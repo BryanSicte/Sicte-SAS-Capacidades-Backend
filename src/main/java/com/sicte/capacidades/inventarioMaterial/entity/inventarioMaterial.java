@@ -14,7 +14,7 @@ import jakarta.persistence.Table;
 @Table(name = "registros_inventario_materiales")
 @NoArgsConstructor
 @AllArgsConstructor
-public class inventarioMaterial {
+public class InventarioMaterial {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

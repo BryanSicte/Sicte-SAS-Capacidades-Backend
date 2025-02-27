@@ -6,14 +6,14 @@ import java.util.Optional;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.sicte.capacidades.usuarios.entity.tokens;
+import com.sicte.capacidades.usuarios.entity.Tokens;
 
 @Repository
-public interface tokensRepository extends CrudRepository<tokens, String> {
+public interface TokensRepository extends CrudRepository<Tokens, String> {
 
-    public Optional<tokens> findByToken(String token);
+    public Optional<Tokens> findByToken(String token);
 
-    public Optional<tokens> findByEmail(String email);
+    public Optional<Tokens> findByEmail(String email);
 
-    public Optional<tokens> findByExpiryDate(Date expiryDate);
+    public Optional<Tokens> findByExpiryDate(Date expiryDate);
 }

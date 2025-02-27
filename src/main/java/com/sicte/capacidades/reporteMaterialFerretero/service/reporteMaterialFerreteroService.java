@@ -5,19 +5,19 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sicte.capacidades.reporteMaterialFerretero.entity.reporteMaterial;
-import com.sicte.capacidades.reporteMaterialFerretero.repository.reporteMaterialRepository;
+import com.sicte.capacidades.reporteMaterialFerretero.entity.ReporteMaterial;
+import com.sicte.capacidades.reporteMaterialFerretero.repository.ReporteMaterialRepository;
 
 @Service
-public class reporteMaterialFerreteroService {
+public class ReporteMaterialFerreteroService {
     @Autowired
-    reporteMaterialRepository reporteMaterialFerretero;
+    ReporteMaterialRepository reporteMaterialFerretero;
 
-    public reporteMaterial guardarReporteMaterialFerretero(reporteMaterial registro) {
+    public ReporteMaterial guardarReporteMaterialFerretero(ReporteMaterial registro) {
         return reporteMaterialFerretero.save(registro);
     }
 
-    public List<reporteMaterial> encontrarTodoReporteMaterialFerretero() {
-        return (List<reporteMaterial>) reporteMaterialFerretero.findAll();
+    public List<ReporteMaterial> encontrarTodoReporteMaterialFerretero() {
+        return (List<ReporteMaterial>) reporteMaterialFerretero.findAll();
     }
 }

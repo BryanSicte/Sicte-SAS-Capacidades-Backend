@@ -1,6 +1,6 @@
 package com.sicte.capacidades.solicitudMaterial.dto;
 
-public class rutaPDFRequest {
+public class RutaPDFRequest {
     private String rutaPdf;
 
     // Getter y Setter

@@ -18,55 +18,55 @@ import java.time.YearMonth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sicte.capacidades.capacidad.dto.cedulaNombreDto;
-import com.sicte.capacidades.capacidad.entity.agregarPersonal;
-import com.sicte.capacidades.capacidad.entity.capacidad;
-import com.sicte.capacidades.capacidad.entity.capacidadBackup;
-import com.sicte.capacidades.capacidad.entity.ciudad;
-import com.sicte.capacidades.capacidad.entity.coordinador;
-import com.sicte.capacidades.capacidad.entity.movil;
-import com.sicte.capacidades.capacidad.entity.planta;
-import com.sicte.capacidades.capacidad.entity.plantaEnLinea;
-import com.sicte.capacidades.capacidad.repository.capacidadBackupRepository;
-import com.sicte.capacidades.capacidad.repository.capacidadRepository;
-import com.sicte.capacidades.capacidad.repository.ciudadRepository;
+import com.sicte.capacidades.capacidad.dto.CedulaNombreDto;
+import com.sicte.capacidades.capacidad.entity.AgregarPersonal;
+import com.sicte.capacidades.capacidad.entity.Capacidad;
+import com.sicte.capacidades.capacidad.entity.CapacidadBackup;
+import com.sicte.capacidades.capacidad.entity.Ciudad;
+import com.sicte.capacidades.capacidad.entity.Coordinador;
+import com.sicte.capacidades.capacidad.entity.Movil;
+import com.sicte.capacidades.capacidad.entity.Planta;
+import com.sicte.capacidades.capacidad.entity.PlantaEnLinea;
+import com.sicte.capacidades.capacidad.repository.CapacidadBackupRepository;
+import com.sicte.capacidades.capacidad.repository.CapacidadRepository;
+import com.sicte.capacidades.capacidad.repository.CiudadRepository;
 import com.sicte.capacidades.capacidad.repository.coordinadorRepository;
-import com.sicte.capacidades.capacidad.repository.movilRepository;
-import com.sicte.capacidades.capacidad.repository.plantaEnLineaRepository;
-import com.sicte.capacidades.capacidad.repository.plantaRepository;
+import com.sicte.capacidades.capacidad.repository.MovilRepository;
+import com.sicte.capacidades.capacidad.repository.PlantaEnLineaRepository;
+import com.sicte.capacidades.capacidad.repository.PlantaRepository;
 
 @Service
-public class capacidadService{
+public class CapacidadService{
     @Autowired
-    capacidadBackupRepository capacidadBackupRepository;
+    CapacidadBackupRepository capacidadBackupRepository;
     @Autowired
-    capacidadRepository capacidadRepository;
+    CapacidadRepository capacidadRepository;
     @Autowired
-    plantaRepository plantaRepository;
+    PlantaRepository plantaRepository;
     @Autowired
-    plantaEnLineaRepository plantaEnLineaRepository;
+    PlantaEnLineaRepository plantaEnLineaRepository;
     @Autowired
-    ciudadRepository ciudadRepository;
+    CiudadRepository ciudadRepository;
     @Autowired
     coordinadorRepository coordinadorRepository;
     @Autowired
-    movilRepository movilRepository;
+    MovilRepository movilRepository;
 
-    public capacidadBackup save(capacidadBackup capacidad) {
+    public CapacidadBackup save(CapacidadBackup capacidad) {
         return capacidadBackupRepository.save(capacidad);
     }
 
-    public capacidad guardarCapacidad(capacidad capacidad) {
+    public Capacidad guardarCapacidad(Capacidad capacidad) {
         return capacidadRepository.save(capacidad);
     }
 
-    public List<capacidadBackup> encontrarTodoCapacidadBackup() {
-        return (List<capacidadBackup>) capacidadBackupRepository.findAllOrderByFechaReporteDesc();
+    public List<CapacidadBackup> encontrarTodoCapacidadBackup() {
+        return (List<CapacidadBackup>) capacidadBackupRepository.findAllOrderByFechaReporteDesc();
     }
 
-    public List<capacidad> encontrarTodoCapacidad(String role) {
-        List<capacidad> capacidades = (List<capacidad>) capacidadRepository.findAllOrderByFechaReporteDesc();
-        List<capacidad> registrosCoincidentes = new ArrayList<>();
+    public List<Capacidad> encontrarTodoCapacidad(String role) {
+        List<Capacidad> capacidades = (List<Capacidad>) capacidadRepository.findAllOrderByFechaReporteDesc();
+        List<Capacidad> registrosCoincidentes = new ArrayList<>();
         if (!"admin".equalsIgnoreCase(role)) {
             registrosCoincidentes = filtrarPorRolDirectorCapacidades(capacidades, role);
         } else {
@@ -75,40 +75,40 @@ public class capacidadService{
         return registrosCoincidentes;
     }
 
-    private List<capacidad> filtrarPorRolDirectorCapacidades(List<capacidad> registros, String director) {
+    private List<Capacidad> filtrarPorRolDirectorCapacidades(List<Capacidad> registros, String director) {
         // Filtrar registros por la columna 'director'
         return registros.stream()
                 .filter(capacidad -> director.equals(capacidad.getDirector()))
                 .collect(Collectors.toList());
     }
 
-    public List<movil> encontrarTodoMovil() {
-        return (List<movil>) movilRepository.findAll();
+    public List<Movil> encontrarTodoMovil() {
+        return (List<Movil>) movilRepository.findAll();
     }
 
-    public List<coordinador> encontrarTodoCoordinador() {
-        return (List<coordinador>) coordinadorRepository.findAll();
+    public List<Coordinador> encontrarTodoCoordinador() {
+        return (List<Coordinador>) coordinadorRepository.findAll();
     } 
 
-    public List<planta> encontrarTodoPlanta() {
-        return (List<planta>) plantaRepository.findAll();
+    public List<Planta> encontrarTodoPlanta() {
+        return (List<Planta>) plantaRepository.findAll();
     }
 
-    public List<plantaEnLinea> encontrarTodoPlantaEnLinea() {
-        return (List<plantaEnLinea>) plantaEnLineaRepository.findAll();
+    public List<PlantaEnLinea> encontrarTodoPlantaEnLinea() {
+        return (List<PlantaEnLinea>) plantaEnLineaRepository.findAll();
     }
 
-    public List<cedulaNombreDto> encontrarCedulaYNombrePlantaEnLinea() {
+    public List<CedulaNombreDto> encontrarCedulaYNombrePlantaEnLinea() {
         return plantaEnLineaRepository.findCedulaAndNombre();
     }
 
-    public List<capacidadBackup> encontrarTodoUltimoMes() {
+    public List<CapacidadBackup> encontrarTodoUltimoMes() {
         // Obtener todos los registros
-        List<capacidadBackup> todosLosRegistros = (List<capacidadBackup>) capacidadBackupRepository.findAllOrderByFechaReporteDesc();
+        List<CapacidadBackup> todosLosRegistros = (List<CapacidadBackup>) capacidadBackupRepository.findAllOrderByFechaReporteDesc();
 
         // Encontrar el último mes presente en los datos
         Optional<LocalDate> ultimaFecha = todosLosRegistros.stream()
-            .map(capacidadBackup::getFechaReporte)
+            .map(CapacidadBackup::getFechaReporte)
             .map(this::parseLocalDate) // Convertir las cadenas de fecha a LocalDate
             .max(Comparator.naturalOrder());
 
@@ -142,24 +142,24 @@ public class capacidadService{
         return LocalDate.parse(fecha, formatter);
     }
 
-    public List<capacidadBackup> encontrarTodoContinuaEnPlanta(String role) {
-        List<planta> todosLosRegistrosPlanta = (List<planta>) plantaRepository.findAll();
-        List<capacidad> capacidades = (List<capacidad>) capacidadRepository.findAll();
-        Map<String, capacidadBackup> capacidadPorCedula = new HashMap<String, capacidadBackup>();
+    public List<CapacidadBackup> encontrarTodoContinuaEnPlanta(String role) {
+        List<Planta> todosLosRegistrosPlanta = (List<Planta>) plantaRepository.findAll();
+        List<Capacidad> capacidades = (List<Capacidad>) capacidadRepository.findAll();
+        Map<String, CapacidadBackup> capacidadPorCedula = new HashMap<String, CapacidadBackup>();
         
-        List<capacidadBackup> todasLasCapacidades = (List<capacidadBackup>) encontrarTodoUltimoMes();
-        for (capacidadBackup capacidad : todasLasCapacidades) {
+        List<CapacidadBackup> todasLasCapacidades = (List<CapacidadBackup>) encontrarTodoUltimoMes();
+        for (CapacidadBackup capacidad : todasLasCapacidades) {
             capacidadPorCedula.put(capacidad.getCedula(), capacidad);
         }
 
         List<String> cedulasExistentes = new ArrayList<>();
-        for (capacidad capacidad : capacidades) {
+        for (Capacidad capacidad : capacidades) {
             cedulasExistentes.add(capacidad.getCedula());
         }
 
-        List<capacidadBackup> registrosCoincidentes = new ArrayList<>();
-        for (planta planta : todosLosRegistrosPlanta) {
-            capacidadBackup capacidad = capacidadPorCedula.get(planta.getNit());
+        List<CapacidadBackup> registrosCoincidentes = new ArrayList<>();
+        for (Planta planta : todosLosRegistrosPlanta) {
+            CapacidadBackup capacidad = capacidadPorCedula.get(planta.getNit());
             if (capacidad != null && !cedulasExistentes.contains(capacidad.getCedula())) {
                 registrosCoincidentes.add(capacidad);
             }
@@ -173,17 +173,17 @@ public class capacidadService{
         return registrosCoincidentes;
     }
 
-    public List<planta> encontrarPlantasSinCapacidad(String role) {
-        List<planta> todosLosRegistrosPlanta = (List<planta>) plantaRepository.findAll();
-        List<capacidad> capacidades = (List<capacidad>) capacidadRepository.findAll();
+    public List<Planta> encontrarPlantasSinCapacidad(String role) {
+        List<Planta> todosLosRegistrosPlanta = (List<Planta>) plantaRepository.findAll();
+        List<Capacidad> capacidades = (List<Capacidad>) capacidadRepository.findAll();
 
         List<String> cedulasExistentes = new ArrayList<>();
-        for (capacidad capacidad : capacidades) {
+        for (Capacidad capacidad : capacidades) {
             cedulasExistentes.add(capacidad.getCedula());
         }
 
-        List<planta> plantasSinCapacidad = new ArrayList<>();
-        for (planta planta : todosLosRegistrosPlanta) {
+        List<Planta> plantasSinCapacidad = new ArrayList<>();
+        for (Planta planta : todosLosRegistrosPlanta) {
             if (!cedulasExistentes.contains(planta.getNit())) {
                 plantasSinCapacidad.add(planta);
             }
@@ -204,14 +204,14 @@ public class capacidadService{
         return plantasSinCapacidad;
     }
 
-    private List<capacidadBackup> filtrarPorRolDirectorCapacidadesBackup(List<capacidadBackup> registros, String director) {
+    private List<CapacidadBackup> filtrarPorRolDirectorCapacidadesBackup(List<CapacidadBackup> registros, String director) {
         // Filtrar registros por la columna 'director'
         return registros.stream()
                 .filter(capacidad -> director.equals(capacidad.getDirector()))
                 .collect(Collectors.toList());
     }
 
-    private List<planta> filtrarPorRolDirectorPlanta(List<planta> plantas, String director) {
+    private List<Planta> filtrarPorRolDirectorPlanta(List<Planta> plantas, String director) {
         // Implementa la lógica de filtrado basada en el rol del director aquí
         // Este es un método de ejemplo
         return plantas.stream()
@@ -219,18 +219,18 @@ public class capacidadService{
                 .collect(Collectors.toList());
     }
 
-    public List<capacidadBackup> encontrarTodoNoContinuaEnPlanta() {
-        List<planta> todosLosRegistrosPlanta = (List<planta>) plantaRepository.findAll();
-        List<capacidadBackup> capacidadesNoCoincidentes = new ArrayList<>();
+    public List<CapacidadBackup> encontrarTodoNoContinuaEnPlanta() {
+        List<Planta> todosLosRegistrosPlanta = (List<Planta>) plantaRepository.findAll();
+        List<CapacidadBackup> capacidadesNoCoincidentes = new ArrayList<>();
         Set<String> cedulasAgregadas = new HashSet<>();
 
         // Obtener todos los NITs de la planta
         Set<String> nitsPlanta = todosLosRegistrosPlanta.stream()
-                                                        .map(planta::getNit)
+                                                        .map(Planta::getNit)
                                                         .collect(Collectors.toSet());
 
         // Encontrar las capacidades que no tienen un NIT correspondiente en la planta
-        for (capacidadBackup capacidad : capacidadBackupRepository.findAllOrderByFechaReporteDesc()) {
+        for (CapacidadBackup capacidad : capacidadBackupRepository.findAllOrderByFechaReporteDesc()) {
             String cedula = capacidad.getCedula();
             if (!nitsPlanta.contains(cedula) && !cedulasAgregadas.contains(cedula)) {
                 capacidadesNoCoincidentes.add(capacidad);
@@ -243,15 +243,15 @@ public class capacidadService{
         return capacidadesNoCoincidentes;
     }
 
-    public Map<String, Object> obtenerInformacionValidarPersonal (agregarPersonal personal) {
+    public Map<String, Object> obtenerInformacionValidarPersonal (AgregarPersonal personal) {
         System.err.println(personal);
-        planta informacionPlanta = plantaRepository.findByNit(personal.getCedula());
+        Planta informacionPlanta = plantaRepository.findByNit(personal.getCedula());
         System.err.println(informacionPlanta);
-        ciudad informacionCiudad = ciudadRepository.findByCiudad(informacionPlanta.getCiudad());
+        Ciudad informacionCiudad = ciudadRepository.findByCiudad(informacionPlanta.getCiudad());
         System.err.println(informacionCiudad);
-        coordinador informacionCoordinador = coordinadorRepository.findByCoordinador(personal.getCoordinador());
+        Coordinador informacionCoordinador = coordinadorRepository.findByCoordinador(personal.getCoordinador());
         System.err.println(informacionCoordinador);
-        movil informacionMovil = movilRepository.findByTipoMovil(personal.getTipoMovil());
+        Movil informacionMovil = movilRepository.findByTipoMovil(personal.getTipoMovil());
         System.err.println(informacionMovil);
         String fechaReporteStr = obtenerFechaReporte();
 
@@ -314,15 +314,15 @@ public class capacidadService{
         capacidadRepository.deleteByCedula(cedula);
     }
 
-    public Map<String, Object> obtenerInformacionAgregarPersonal (agregarPersonal personal) {
+    public Map<String, Object> obtenerInformacionAgregarPersonal (AgregarPersonal personal) {
         System.err.println(personal);
-        planta informacionPlanta = plantaRepository.findByNit(personal.getCedula());
+        Planta informacionPlanta = plantaRepository.findByNit(personal.getCedula());
         System.err.println(informacionPlanta);
-        ciudad informacionCiudad = ciudadRepository.findByCiudad(informacionPlanta.getCiudad());
+        Ciudad informacionCiudad = ciudadRepository.findByCiudad(informacionPlanta.getCiudad());
         System.err.println(informacionCiudad);
-        coordinador informacionCoordinador = coordinadorRepository.findByCoordinador(personal.getCoordinador());
+        Coordinador informacionCoordinador = coordinadorRepository.findByCoordinador(personal.getCoordinador());
         System.err.println(informacionCoordinador);
-        movil informacionMovil = movilRepository.findByTipoMovil(personal.getTipoMovil());
+        Movil informacionMovil = movilRepository.findByTipoMovil(personal.getTipoMovil());
         System.err.println(informacionMovil);
         String fechaReporteStr = obtenerFechaReporteAgregar();
 

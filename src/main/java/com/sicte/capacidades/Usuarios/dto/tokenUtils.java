@@ -3,7 +3,7 @@ package com.sicte.capacidades.usuarios.dto;
 import java.util.Date;
 import java.util.UUID;
 
-public class tokenUtils {
+public class TokenUtils {
     public static String generateToken() {
         return UUID.randomUUID().toString();
     }

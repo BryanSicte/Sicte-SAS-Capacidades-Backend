@@ -14,7 +14,7 @@ import jakarta.persistence.Table;
 @Table(name = "registros_reporte_material_ferretero")
 @NoArgsConstructor
 @AllArgsConstructor
-public class reporteMaterial {
+public class ReporteMaterial {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

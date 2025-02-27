@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class namePDFSave {
+public class NamePDFSave {
     private List<Long> ids;
     private String pdfNombre;
 

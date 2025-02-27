@@ -3,8 +3,8 @@ package com.sicte.capacidades.reporteMaterialFerretero.controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.sicte.capacidades.reporteMaterialFerretero.entity.reporteMaterial;
-import com.sicte.capacidades.reporteMaterialFerretero.service.reporteMaterialFerreteroService;
+import com.sicte.capacidades.reporteMaterialFerretero.entity.ReporteMaterial;
+import com.sicte.capacidades.reporteMaterialFerretero.service.ReporteMaterialFerreteroService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -22,15 +22,15 @@ import java.util.List;
         "http://localhost:3000" })
 @RestController
 @RequestMapping("/reporteMaterialFerretero")
-public class reporteMaterialFerreteroController {
+public class ReporteMaterialFerreteroController {
     @Autowired
-    private reporteMaterialFerreteroService reporteMaterialFerreteroService;
+    private ReporteMaterialFerreteroService reporteMaterialFerreteroService;
 
     private static final String LOCAL_UPLOAD_DIR = "C:/Users/Juan/Nextcloud/APP Ferretero/";
 
     @PostMapping("/cargarDatosReporteMaterialFerretero")
-    public ResponseEntity<reporteMaterial> crearReporteMaterialFerretero(@RequestBody reporteMaterial nuevoRegistro) {
-            reporteMaterial registroGuardada = reporteMaterialFerreteroService.guardarReporteMaterialFerretero(nuevoRegistro);
+    public ResponseEntity<ReporteMaterial> crearReporteMaterialFerretero(@RequestBody ReporteMaterial nuevoRegistro) {
+            ReporteMaterial registroGuardada = reporteMaterialFerreteroService.guardarReporteMaterialFerretero(nuevoRegistro);
         return new ResponseEntity<>(registroGuardada, HttpStatus.CREATED);
     }
 
@@ -55,8 +55,8 @@ public class reporteMaterialFerreteroController {
     }
 
     @GetMapping("/obtenerReporteMaterialFerretero")
-    public ResponseEntity<List<reporteMaterial>> obtenerReporteMaterialFerretero() {
-        List<reporteMaterial> registros = reporteMaterialFerreteroService.encontrarTodoReporteMaterialFerretero();
+    public ResponseEntity<List<ReporteMaterial>> obtenerReporteMaterialFerretero() {
+        List<ReporteMaterial> registros = reporteMaterialFerreteroService.encontrarTodoReporteMaterialFerretero();
         return new ResponseEntity<>(registros, HttpStatus.OK);
     }
 

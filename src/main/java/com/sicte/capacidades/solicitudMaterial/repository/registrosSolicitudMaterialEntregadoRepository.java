@@ -3,27 +3,27 @@ package com.sicte.capacidades.solicitudMaterial.repository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.sicte.capacidades.solicitudMaterial.entity.registrosSolicitudMaterialEntregado;;
+import com.sicte.capacidades.solicitudMaterial.entity.RegistrosSolicitudMaterialEntregado;
 
 @Repository
-public interface registrosSolicitudMaterialEntregadoRepository extends CrudRepository<registrosSolicitudMaterialEntregado, String> {
-    public registrosSolicitudMaterialEntregado findByFechaEntrega(String fechaEntrega);
+public interface RegistrosSolicitudMaterialEntregadoRepository extends CrudRepository<RegistrosSolicitudMaterialEntregado, String> {
+    public RegistrosSolicitudMaterialEntregado findByFechaEntrega(String fechaEntrega);
 
-    public registrosSolicitudMaterialEntregado findByCiudad(String ciudad);
+    public RegistrosSolicitudMaterialEntregado findByCiudad(String ciudad);
 
-    public registrosSolicitudMaterialEntregado findByDocumento(String documento);
+    public RegistrosSolicitudMaterialEntregado findByDocumento(String documento);
 
-    public registrosSolicitudMaterialEntregado findByUuid(String uuid);
+    public RegistrosSolicitudMaterialEntregado findByUuid(String uuid);
 
-    public registrosSolicitudMaterialEntregado findByNombreProyecto(String nombreProyecto);
+    public RegistrosSolicitudMaterialEntregado findByNombreProyecto(String nombreProyecto);
 
-    public registrosSolicitudMaterialEntregado findByCodigoSapMaterial(String codigoSapMaterial);
+    public RegistrosSolicitudMaterialEntregado findByCodigoSapMaterial(String codigoSapMaterial);
 
-    public registrosSolicitudMaterialEntregado findByDescripcionMaterial(String descripcionMaterial);
+    public RegistrosSolicitudMaterialEntregado findByDescripcionMaterial(String descripcionMaterial);
 
-    public registrosSolicitudMaterialEntregado findByUnidadMedidaMaterial(String unidadMedidaMaterial);
+    public RegistrosSolicitudMaterialEntregado findByUnidadMedidaMaterial(String unidadMedidaMaterial);
 
-    public registrosSolicitudMaterialEntregado findByCantidadSolicitadaMaterial(String cantidadSolicitadaMaterial);
+    public RegistrosSolicitudMaterialEntregado findByCantidadSolicitadaMaterial(String cantidadSolicitadaMaterial);
 
-    public registrosSolicitudMaterialEntregado findByMaterial(String material);
+    public RegistrosSolicitudMaterialEntregado findByMaterial(String material);
 }

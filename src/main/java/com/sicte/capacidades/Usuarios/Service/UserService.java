@@ -8,49 +8,49 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-import com.sicte.capacidades.usuarios.entity.pagesUser;
-import com.sicte.capacidades.usuarios.entity.tokens;
-import com.sicte.capacidades.usuarios.entity.user;
-import com.sicte.capacidades.usuarios.repository.pagesUserRepository;
-import com.sicte.capacidades.usuarios.repository.tokensRepository;
-import com.sicte.capacidades.usuarios.repository.userRepository;
+import com.sicte.capacidades.usuarios.entity.PagesUser;
+import com.sicte.capacidades.usuarios.entity.Tokens;
+import com.sicte.capacidades.usuarios.entity.User;
+import com.sicte.capacidades.usuarios.repository.PagesUserRepository;
+import com.sicte.capacidades.usuarios.repository.TokensRepository;
+import com.sicte.capacidades.usuarios.repository.UserRepository;
 
 @Service
-public class userService{
+public class UserService{
 
     @Autowired
-    userRepository userRepository;
+    UserRepository userRepository;
 
     @Autowired 
-    pagesUserRepository pagesUserRepository; 
+    PagesUserRepository pagesUserRepository; 
 
     @Autowired
-    tokensRepository tokensRepository;
+    TokensRepository tokensRepository;
 
     @Autowired
     private JavaMailSender mailSender;
 
-    public user save(user user) {
+    public User save(User user) {
         return userRepository.save(user);
     }
 
-    public List<user> findAll() {
-        return (List<user>) userRepository.findAll();
+    public List<User> findAll() {
+        return (List<User>) userRepository.findAll();
     }
 
-    public user findByNombre(String valor) {
+    public User findByNombre(String valor) {
         return userRepository.findByNombre(valor);
     }
 
-    public user findByCorreo(String valor) {
+    public User findByCorreo(String valor) {
         return userRepository.findByCorreo(valor);
     }
 
-    public user getUserById(String id) {
+    public User getUserById(String id) {
         return userRepository.findById(id).get();
     }
 
-    public user getUserByCorreo(String correo) {
+    public User getUserByCorreo(String correo) {
         return userRepository.findByCorreo(correo);
     }
 
@@ -72,23 +72,23 @@ public class userService{
         mailSender.send(message);
     }
 
-    public Optional<tokens> findByToken(String token) {
+    public Optional<Tokens> findByToken(String token) {
         return tokensRepository.findByToken(token);
     }
 
-    public List<tokens> findAllTokens() {
-        return (List<tokens>) tokensRepository.findAll();
+    public List<Tokens> findAllTokens() {
+        return (List<Tokens>) tokensRepository.findAll();
     }
 
     public void actualizarContrasena(String email, String contrasena) {
         userRepository.actualizarContrasena(email, contrasena);
     }
 
-    public List<pagesUser> findAllPagesUser() {
-        return (List<pagesUser>) pagesUserRepository.findAll();
+    public List<PagesUser> findAllPagesUser() {
+        return (List<PagesUser>) pagesUserRepository.findAll();
     }
 
-    public pagesUser savePagesUser(pagesUser pagesUser) {
+    public PagesUser savePagesUser(PagesUser pagesUser) {
         return pagesUserRepository.save(pagesUser);
     }
 }

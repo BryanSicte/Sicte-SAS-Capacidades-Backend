@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class actualizarContrasena {
+public class ActualizarContrasena {
     private String emailToken;
     private String password2;
 

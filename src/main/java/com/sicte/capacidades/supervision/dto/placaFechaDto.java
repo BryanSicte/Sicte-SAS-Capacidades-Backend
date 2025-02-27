@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class placaFechaDto {
+public class PlacaFechaDto {
     private String fecha;
     private String placa;
 }

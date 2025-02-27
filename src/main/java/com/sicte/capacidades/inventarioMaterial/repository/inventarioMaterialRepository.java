@@ -3,29 +3,29 @@ package com.sicte.capacidades.inventarioMaterial.repository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.sicte.capacidades.inventarioMaterial.entity.inventarioMaterial;
+import com.sicte.capacidades.inventarioMaterial.entity.InventarioMaterial;
 
 @Repository
-public interface inventarioMaterialRepository extends CrudRepository<inventarioMaterial, String> {
-        public inventarioMaterial findByFecha(String fecha);
+public interface InventarioMaterialRepository extends CrudRepository<InventarioMaterial, String> {
+        public InventarioMaterial findByFecha(String fecha);
 
-        public inventarioMaterial findByCedula(String cedula);
+        public InventarioMaterial findByCedula(String cedula);
 
-        public inventarioMaterial findByNombre(String nombre);
+        public InventarioMaterial findByNombre(String nombre);
 
-        public inventarioMaterial findByCodigoMovil(String codigoMovil);
+        public InventarioMaterial findByCodigoMovil(String codigoMovil);
         
-        public inventarioMaterial findByMovil(String movil);
+        public InventarioMaterial findByMovil(String movil);
 
-        public inventarioMaterial findByResponsable(String responsable);
+        public InventarioMaterial findByResponsable(String responsable);
 
-        public inventarioMaterial findByCodigoSap(String codigoSap);
+        public InventarioMaterial findByCodigoSap(String codigoSap);
 
-        public inventarioMaterial findByDescripcion(String descripcion);
+        public InventarioMaterial findByDescripcion(String descripcion);
 
-        public inventarioMaterial findByUnidadMedida(String unidadMedida);
+        public InventarioMaterial findByUnidadMedida(String unidadMedida);
 
-        public inventarioMaterial findByCantidad(String cantidad);
+        public InventarioMaterial findByCantidad(String cantidad);
 
-        public inventarioMaterial findBySerial(String serial);
+        public InventarioMaterial findBySerial(String serial);
 }

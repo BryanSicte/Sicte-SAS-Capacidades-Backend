@@ -3,14 +3,14 @@ package com.sicte.capacidades.capacidad.repository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.sicte.capacidades.capacidad.entity.movil;
+import com.sicte.capacidades.capacidad.entity.Movil;
 
 @Repository
-public interface movilRepository extends CrudRepository<movil, String> {
-    public movil findByTipoMovil (String tipoMovil);
-    public movil findByTipoFacturacion (String tipoFacturacion);
-    public movil findByTurnos (String turnos);
-    public movil findByPersonas (String personas);
-    public movil findByMovil (String movil);
-    public movil findByValorEsperado (String valorEsperado);
+public interface MovilRepository extends CrudRepository<Movil, String> {
+    public Movil findByTipoMovil (String tipoMovil);
+    public Movil findByTipoFacturacion (String tipoFacturacion);
+    public Movil findByTurnos (String turnos);
+    public Movil findByPersonas (String personas);
+    public Movil findByMovil (String movil);
+    public Movil findByValorEsperado (String valorEsperado);
 }

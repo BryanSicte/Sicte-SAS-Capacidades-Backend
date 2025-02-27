@@ -5,24 +5,24 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sicte.capacidades.supervision.dto.placaFechaDto;
-import com.sicte.capacidades.supervision.entity.registros;
-import com.sicte.capacidades.supervision.repository.registrosRepository;
+import com.sicte.capacidades.supervision.dto.PlacaFechaDto;
+import com.sicte.capacidades.supervision.entity.Registros;
+import com.sicte.capacidades.supervision.repository.RegistrosRepository;
 
 @Service
-public class supervisionService{
+public class SupervisionService{
     @Autowired
-    registrosRepository registrosRepository;
+    RegistrosRepository registrosRepository;
 
-    public registros guardarRegistro(registros registro) {
+    public Registros guardarRegistro(Registros registro) {
         return registrosRepository.save(registro);
     }
 
-    public List<registros> encontrarTodoRegistros() {
-        return (List<registros>) registrosRepository.findAll();
+    public List<Registros> encontrarTodoRegistros() {
+        return (List<Registros>) registrosRepository.findAll();
     }
 
-    public List<placaFechaDto> encontrarFechaYPlacaRegistros() {
+    public List<PlacaFechaDto> encontrarFechaYPlacaRegistros() {
         return registrosRepository.findFechaAndPlaca();
     }
 

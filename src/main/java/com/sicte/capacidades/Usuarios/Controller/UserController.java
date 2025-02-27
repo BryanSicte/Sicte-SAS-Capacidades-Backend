@@ -5,13 +5,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.sicte.capacidades.usuarios.dto.actualizarContrasena;
-import com.sicte.capacidades.usuarios.dto.tokenUtils;
-import com.sicte.capacidades.usuarios.entity.pagesUser;
-import com.sicte.capacidades.usuarios.entity.tokens;
-import com.sicte.capacidades.usuarios.entity.user;
-import com.sicte.capacidades.usuarios.repository.tokensRepository;
-import com.sicte.capacidades.usuarios.service.userService;
+import com.sicte.capacidades.usuarios.dto.ActualizarContrasena;
+import com.sicte.capacidades.usuarios.dto.TokenUtils;
+import com.sicte.capacidades.usuarios.entity.PagesUser;
+import com.sicte.capacidades.usuarios.entity.Tokens;
+import com.sicte.capacidades.usuarios.entity.User;
+import com.sicte.capacidades.usuarios.repository.TokensRepository;
+import com.sicte.capacidades.usuarios.service.UserService;
 
 import jakarta.validation.Valid;
 
@@ -24,22 +24,22 @@ import java.util.Optional;
         "http://localhost:3000" })
 @RestController
 @RequestMapping("/user")
-public class userController {
+public class UserController {
     @Autowired
-    private userService userService;
+    private UserService userService;
 
     @Autowired
-    private tokensRepository tokensRepository;
+    private TokensRepository tokensRepository;
 
     @GetMapping
-    public ResponseEntity<List<user>> getAllUsers() {
-        List<user> users = userService.findAll();
+    public ResponseEntity<List<User>> getAllUsers() {
+        List<User> users = userService.findAll();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<user> getUserById(@PathVariable String id) {
-        user user = userService.getUserById(id);
+    public ResponseEntity<User> getUserById(@PathVariable String id) {
+        User user = userService.getUserById(id);
         if (user != null) {
             return new ResponseEntity<>(user, HttpStatus.OK);
         }
@@ -47,18 +47,18 @@ public class userController {
     }
 
     @PostMapping
-    public ResponseEntity<user> createUser(@Valid @RequestBody user user) {
-        user createdUser = userService.save(user);
+    public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
+        User createdUser = userService.save(user);
         return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
     }
 
     @PostMapping("/login/login")
-    public ResponseEntity<user> login(@RequestBody user user) {
+    public ResponseEntity<User> login(@RequestBody User user) {
 
         String correo = user.getCorreo();
         String contrasena = user.getContrasena();
 
-        user usuarioEncontrado = userService.findByCorreo(correo);
+        User usuarioEncontrado = userService.findByCorreo(correo);
         if (usuarioEncontrado == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -74,9 +74,9 @@ public class userController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<user> updateUser(@PathVariable String id, @RequestBody user user) {
+    public ResponseEntity<User> updateUser(@PathVariable String id, @RequestBody User user) {
         user.setId(id);
-        user updatedUser = userService.save(user);
+        User updatedUser = userService.save(user);
         if (updatedUser != null) {
             return new ResponseEntity<>(updatedUser, HttpStatus.OK);
         }
@@ -111,12 +111,12 @@ public class userController {
     @PostMapping("/enviarToken")
     public String sendResetToken(@RequestBody Map<String, String> payload) {
         // Generar token y fecha de expiración
-        String token = tokenUtils.generateToken();
-        Date expiryDate = tokenUtils.calculateExpiryDate(30); // Token válido por 30 minutos
+        String token = TokenUtils.generateToken();
+        Date expiryDate = TokenUtils.calculateExpiryDate(30); // Token válido por 30 minutos
         String email = payload.get("email");
 
         // Guardar token en la base de datos
-        tokens resetToken = new tokens();
+        Tokens resetToken = new Tokens();
         resetToken.setToken(token);
         resetToken.setEmail(email);
         resetToken.setExpiryDate(expiryDate);
@@ -132,13 +132,13 @@ public class userController {
 
     @GetMapping("/validarToken")
     public String validateToken(@RequestParam String token) {
-        Optional<tokens> optionalToken = userService.findByToken(token); // Cambiar tokenUtils a tokens
+        Optional<Tokens> optionalToken = userService.findByToken(token); // Cambiar tokenUtils a tokens
 
         if (optionalToken.isEmpty()) {
             return "Token inválido.";
         }
 
-        tokens resetToken = optionalToken.get(); // Cambiar tokenUtils a tokens
+        Tokens resetToken = optionalToken.get(); // Cambiar tokenUtils a tokens
 
         if (resetToken.getExpiryDate().before(new Date())) { // Esto debería funcionar si getExpiryDate está en la clase
                                                              // tokens
@@ -149,14 +149,14 @@ public class userController {
     }
 
     @GetMapping("/tokens")
-    public ResponseEntity<List<tokens>> getAllTokens() {
-        List<tokens> tokens = userService.findAllTokens();
+    public ResponseEntity<List<Tokens>> getAllTokens() {
+        List<Tokens> tokens = userService.findAllTokens();
         return new ResponseEntity<>(tokens, HttpStatus.OK);
     }
 
     @PostMapping("/actualizarContrasena")
     public ResponseEntity<String> actualizarContrasena(
-            @RequestBody actualizarContrasena request) {
+            @RequestBody ActualizarContrasena request) {
         try {
             String email = request.getEmail();
             String contrasena = request.getContrasena();
@@ -171,15 +171,15 @@ public class userController {
     }
 
     @GetMapping("/pagesUser")
-    public ResponseEntity<List<pagesUser>> getAllPagesUser() {
-        List<pagesUser> pagesUsers = userService.findAllPagesUser();
+    public ResponseEntity<List<PagesUser>> getAllPagesUser() {
+        List<PagesUser> pagesUsers = userService.findAllPagesUser();
         return new ResponseEntity<>(pagesUsers, HttpStatus.OK);
     }
 
     @PutMapping("/pagesUser/{id}")
-    public ResponseEntity<pagesUser> updatePagesUser(@PathVariable Long id, @RequestBody pagesUser pagesUser) {
+    public ResponseEntity<PagesUser> updatePagesUser(@PathVariable Long id, @RequestBody PagesUser pagesUser) {
         pagesUser.setId(id);
-        pagesUser updatedPagesUser = userService.savePagesUser(pagesUser);
+        PagesUser updatedPagesUser = userService.savePagesUser(pagesUser);
         if (updatedPagesUser != null) {
             return new ResponseEntity<>(updatedPagesUser, HttpStatus.OK);
         }

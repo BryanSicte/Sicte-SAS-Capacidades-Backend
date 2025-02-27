@@ -15,7 +15,7 @@ import jakarta.persistence.Table;
 @Table(name = "pages_per_user")
 @NoArgsConstructor
 @AllArgsConstructor
-public class pagesUser {
+public class PagesUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

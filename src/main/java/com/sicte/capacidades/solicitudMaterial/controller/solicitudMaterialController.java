@@ -1,13 +1,13 @@
 package com.sicte.capacidades.solicitudMaterial.controller;
 
-import com.sicte.capacidades.solicitudMaterial.dto.actualizarEstadoCantidadRestantePorDespachoRequest;
-import com.sicte.capacidades.solicitudMaterial.dto.actualizarEstadoDirectorRequest;
-import com.sicte.capacidades.solicitudMaterial.dto.rutaPDFRequest;
-import com.sicte.capacidades.solicitudMaterial.dto.namePDFSave;
-import com.sicte.capacidades.solicitudMaterial.entity.registrosSolicitudMaterial;
-import com.sicte.capacidades.solicitudMaterial.entity.registrosSolicitudMaterialEntregado;
-import com.sicte.capacidades.solicitudMaterial.entity.relacionPersonal;
-import com.sicte.capacidades.solicitudMaterial.service.solicitudMaterialService;
+import com.sicte.capacidades.solicitudMaterial.dto.ActualizarEstadoCantidadRestantePorDespachoRequest;
+import com.sicte.capacidades.solicitudMaterial.dto.ActualizarEstadoDirectorRequest;
+import com.sicte.capacidades.solicitudMaterial.dto.NamePDFSave;
+import com.sicte.capacidades.solicitudMaterial.dto.RutaPDFRequest;
+import com.sicte.capacidades.solicitudMaterial.entity.RegistrosSolicitudMaterial;
+import com.sicte.capacidades.solicitudMaterial.entity.RegistrosSolicitudMaterialEntregado;
+import com.sicte.capacidades.solicitudMaterial.entity.RelacionPersonal;
+import com.sicte.capacidades.solicitudMaterial.service.SolicitudMaterialService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,13 +25,14 @@ import java.io.InputStreamReader;
 import java.nio.file.Paths;
 import java.util.List;
 
-@CrossOrigin(origins = { "https://sictepowergmail.github.io/", "https://BryanSicte.github.io", "https://bryanutria.github.io/",
+@CrossOrigin(origins = { "https://sictepowergmail.github.io/", "https://BryanSicte.github.io",
+        "https://bryanutria.github.io/",
         "http://localhost:3000" })
 @RestController
 @RequestMapping("/solicitudMaterial")
-public class solicitudMaterialController {
+public class SolicitudMaterialController {
     @Autowired
-    private solicitudMaterialService solicitudMaterialService;
+    private SolicitudMaterialService solicitudMaterialService;
 
     private static final String LOCAL_UPLOAD_COMPRIMIDOS = "C:/Users/Juan/Nextcloud/APP Material/COMPRIMIDOS/";
     private static final String LOCAL_UPLOAD_KMZ = "C:/Users/Juan/Nextcloud/APP Material/KMZ/";
@@ -109,29 +110,31 @@ public class solicitudMaterialController {
     }
 
     @PostMapping("/cargarDatos")
-    public ResponseEntity<registrosSolicitudMaterial> crearNuevoRegistro(
-            @RequestBody registrosSolicitudMaterial nuevoRegistro) {
-        registrosSolicitudMaterial registroGuardada = solicitudMaterialService.guardarRegistro(nuevoRegistro);
+    public ResponseEntity<RegistrosSolicitudMaterial> crearNuevoRegistro(
+            @RequestBody RegistrosSolicitudMaterial nuevoRegistro) {
+        RegistrosSolicitudMaterial registroGuardada = solicitudMaterialService.guardarRegistro(nuevoRegistro);
         return new ResponseEntity<>(registroGuardada, HttpStatus.CREATED);
     }
 
     @PostMapping("/cargarDatosEntregados")
-    public ResponseEntity<registrosSolicitudMaterialEntregado> crearNuevoRegistroEntregado(
-            @RequestBody registrosSolicitudMaterialEntregado nuevoRegistro) {
-                System.err.println(nuevoRegistro);
-        registrosSolicitudMaterialEntregado registroGuardada = solicitudMaterialService.guardarRegistroEntregado(nuevoRegistro);
+    public ResponseEntity<RegistrosSolicitudMaterialEntregado> crearNuevoRegistroEntregado(
+            @RequestBody RegistrosSolicitudMaterialEntregado nuevoRegistro) {
+        System.err.println(nuevoRegistro);
+        RegistrosSolicitudMaterialEntregado registroGuardada = solicitudMaterialService
+                .guardarRegistroEntregado(nuevoRegistro);
         return new ResponseEntity<>(registroGuardada, HttpStatus.CREATED);
     }
 
     @GetMapping("/RegistrosSolicitudMaterial")
-    public ResponseEntity<List<registrosSolicitudMaterial>> getTodaRegistros() {
-        List<registrosSolicitudMaterial> registros = solicitudMaterialService.encontrarTodoRegistros();
+    public ResponseEntity<List<RegistrosSolicitudMaterial>> getTodaRegistros() {
+        List<RegistrosSolicitudMaterial> registros = solicitudMaterialService.encontrarTodoRegistros();
         return new ResponseEntity<>(registros, HttpStatus.OK);
     }
 
     @GetMapping("/RegistrosEntregadosSolicitudMaterial")
-    public ResponseEntity<List<registrosSolicitudMaterialEntregado>> getTodaRegistrosEntregados() {
-        List<registrosSolicitudMaterialEntregado> registros = solicitudMaterialService.encontrarTodoRegistrosEntregado();
+    public ResponseEntity<List<RegistrosSolicitudMaterialEntregado>> getTodaRegistrosEntregados() {
+        List<RegistrosSolicitudMaterialEntregado> registros = solicitudMaterialService
+                .encontrarTodoRegistrosEntregado();
         return new ResponseEntity<>(registros, HttpStatus.OK);
     }
 
@@ -219,7 +222,7 @@ public class solicitudMaterialController {
     }
 
     @PostMapping("/actualizarEstadoAnalista")
-    public ResponseEntity<String> actualizarEstadorAnalista(@RequestBody actualizarEstadoDirectorRequest request) {
+    public ResponseEntity<String> actualizarEstadorAnalista(@RequestBody ActualizarEstadoDirectorRequest request) {
         try {
             List<Long> ids = request.getIds();
             String estado = request.getEstado();
@@ -243,7 +246,7 @@ public class solicitudMaterialController {
     }
 
     @PostMapping("/actualizarEstadoDirector")
-    public ResponseEntity<String> actualizarEstadoDirector(@RequestBody actualizarEstadoDirectorRequest request) {
+    public ResponseEntity<String> actualizarEstadoDirector(@RequestBody ActualizarEstadoDirectorRequest request) {
         try {
             List<Long> ids = request.getIds();
             String estado = request.getEstado();
@@ -267,7 +270,7 @@ public class solicitudMaterialController {
 
     @PostMapping("/actualizarEstadoDireccionOperacion")
     public ResponseEntity<String> actualizarEstadoDireccionOperacion(
-            @RequestBody actualizarEstadoDirectorRequest request) {
+            @RequestBody ActualizarEstadoDirectorRequest request) {
         try {
             List<Long> ids = request.getIds();
             String estado = request.getEstado();
@@ -290,7 +293,7 @@ public class solicitudMaterialController {
 
     @PostMapping("/actualizarEstadoEntregaBodega")
     public ResponseEntity<String> actualizarEstadoEntregaBodega(
-            @RequestBody actualizarEstadoDirectorRequest request) {
+            @RequestBody ActualizarEstadoDirectorRequest request) {
         try {
             List<Long> ids = request.getIds();
             String estado = request.getEstado();
@@ -309,7 +312,7 @@ public class solicitudMaterialController {
 
     @PostMapping("/actualizarEstadoCantidadRestantePorDespacho")
     public ResponseEntity<String> actualizarEstadoCantidadRestantePorDespacho(
-            @RequestBody actualizarEstadoCantidadRestantePorDespachoRequest request) {
+            @RequestBody ActualizarEstadoCantidadRestantePorDespachoRequest request) {
         try {
             List<Long> ids = request.getIds();
             List<String> cantidades = request.getCantidades();
@@ -334,7 +337,7 @@ public class solicitudMaterialController {
 
     @PostMapping("/actualizarEstadoCantidadDisponibleMaterial")
     public ResponseEntity<String> actualizarEstadoCantidadDisponibleMaterial(
-            @RequestBody actualizarEstadoCantidadRestantePorDespachoRequest request) {
+            @RequestBody ActualizarEstadoCantidadRestantePorDespachoRequest request) {
         try {
             List<Long> ids = request.getIds();
             List<String> cantidades = request.getCantidades();
@@ -358,7 +361,7 @@ public class solicitudMaterialController {
     }
 
     @PostMapping("/actualizarEstadoEntregaBodegaPDFs")
-    public ResponseEntity<String> actualizarEstadoEstregaBodegaPDFs(@RequestBody namePDFSave request) {
+    public ResponseEntity<String> actualizarEstadoEstregaBodegaPDFs(@RequestBody NamePDFSave request) {
         try {
             List<Long> ids = request.getIds();
             String namePdfs = request.getPdfNombre();
@@ -375,7 +378,7 @@ public class solicitudMaterialController {
     }
 
     @PostMapping("/leerPDF")
-    public String procesarPdf(@RequestBody rutaPDFRequest rutaPDFRequest) {
+    public String procesarPdf(@RequestBody RutaPDFRequest rutaPDFRequest) {
         String pythonScriptPath = "C:\\Users\\Juan\\Documents\\Desarrollos\\Leer PDFs\\Leer PDF.py";
         String rutaPdf = LOCAL_UPLOAD_PDF_2 + rutaPDFRequest.getRutaPdf();
 
@@ -404,13 +407,13 @@ public class solicitudMaterialController {
     }
 
     @GetMapping("/RelacionPersonal")
-    public ResponseEntity<List<relacionPersonal>> getTodaRelacionPersonal() {
-        List<relacionPersonal> registros = solicitudMaterialService.encontrarTodoRelacionPersonal();
+    public ResponseEntity<List<RelacionPersonal>> getTodaRelacionPersonal() {
+        List<RelacionPersonal> registros = solicitudMaterialService.encontrarTodoRelacionPersonal();
         return new ResponseEntity<>(registros, HttpStatus.OK);
     }
 
     @PostMapping("/actualizarEstadoCierreProyecto")
-    public ResponseEntity<String> actualizarEstadoCierreProyecto(@RequestBody namePDFSave request) {
+    public ResponseEntity<String> actualizarEstadoCierreProyecto(@RequestBody NamePDFSave request) {
         try {
             List<Long> ids = request.getIds();
             String estadoProyecto = request.getPdfNombre();
@@ -427,5 +430,5 @@ public class solicitudMaterialController {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al actualizar el estado");
         }
-    } 
+    }
 }

@@ -3,9 +3,9 @@ package com.sicte.capacidades.supervision.controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.sicte.capacidades.supervision.dto.placaFechaDto;
-import com.sicte.capacidades.supervision.entity.registros;
-import com.sicte.capacidades.supervision.service.supervisionService;
+import com.sicte.capacidades.supervision.dto.PlacaFechaDto;
+import com.sicte.capacidades.supervision.entity.Registros;
+import com.sicte.capacidades.supervision.service.SupervisionService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.UrlResource;
@@ -13,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,9 +22,9 @@ import java.util.List;
 @CrossOrigin(origins = {"https://sictepowergmail.github.io/","https://BryanSicte.github.io","http://localhost:3000","https://bryanutria.github.io/"})
 @RestController
 @RequestMapping("/supervision")
-public class supervisionController {
+public class SupervisionController {
     @Autowired
-    private supervisionService supervisionService;
+    private SupervisionService supervisionService;
 
     private static final String LOCAL_UPLOAD_DIR = "C:/Users/Juan/Nextcloud/APP Supervision/";
 
@@ -50,20 +49,20 @@ public class supervisionController {
     }
 
     @PostMapping("/cargarDatos")
-    public ResponseEntity<registros> crearNuevoRegistro(@RequestBody registros nuevoRegistro) {
-        registros registroGuardada = supervisionService.guardarRegistro(nuevoRegistro);
+    public ResponseEntity<Registros> crearNuevoRegistro(@RequestBody Registros nuevoRegistro) {
+        Registros registroGuardada = supervisionService.guardarRegistro(nuevoRegistro);
         return new ResponseEntity<>(registroGuardada, HttpStatus.CREATED);
     }
 
     @GetMapping("/RegistrosSupervision")
-    public ResponseEntity<List<registros>> getTodaRegistros() {
-        List<registros> registros = supervisionService.encontrarTodoRegistros();
+    public ResponseEntity<List<Registros>> getTodaRegistros() {
+        List<Registros> registros = supervisionService.encontrarTodoRegistros();
         return new ResponseEntity<>(registros, HttpStatus.OK);
     }
 
     @GetMapping("/RegistrosSupervisionFechaPlaca")
-    public ResponseEntity<List<placaFechaDto>> getRegistrosFechaPlaca() {
-        List<placaFechaDto> registros = supervisionService.encontrarFechaYPlacaRegistros();
+    public ResponseEntity<List<PlacaFechaDto>> getRegistrosFechaPlaca() {
+        List<PlacaFechaDto> registros = supervisionService.encontrarFechaYPlacaRegistros();
         return new ResponseEntity<>(registros, HttpStatus.OK);
     }
 

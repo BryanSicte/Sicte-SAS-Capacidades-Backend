@@ -6,40 +6,40 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.sicte.capacidades.capacidad.entity.capacidadBackup;
+import com.sicte.capacidades.capacidad.entity.CapacidadBackup;
 
 @Repository
-public interface capacidadBackupRepository extends CrudRepository<capacidadBackup, String> {
-    public capacidadBackup findByCedula (String cedula);
-    public capacidadBackup findByNombreCompleto (String nombreCompleto);
-    public capacidadBackup findByCargo (String cargo);
-    public capacidadBackup findByCentroCosto (String centroCosto);
-    public capacidadBackup findByNomina (String nomina);
-    public capacidadBackup findByRegional (String regional);
-    public capacidadBackup findByCiudadTrabajo (String ciudadTrabajo);
-    public capacidadBackup findByRed (String red);
-    public capacidadBackup findByCliente (String cliente);
-    public capacidadBackup findByArea (String area);
-    public capacidadBackup findBySubArea (String subArea);
-    public capacidadBackup findByCodigoSap (String codigoSap);
-    public capacidadBackup findByTipoDeMovil (String tipoDeMovil);
-    public capacidadBackup findByTipoFacturacion (String tipoFacturacion);
-    public capacidadBackup findByMovil (String movil);
-    public capacidadBackup findByCoordinador (String coordinador);
-    public capacidadBackup findByDirector (String director);
-    public capacidadBackup findByContratista (String contratista);
-    public capacidadBackup findByValorEsperado (String valorEsperado);
-    public capacidadBackup findByPlaca (String placa);
-    public capacidadBackup findByTipoCarro (String tipoCarro);
-    public capacidadBackup findByFechaReporte (String fechaReporte);
-    public capacidadBackup findByMes (String mes);
-    public capacidadBackup findByAño (String año);
-    public capacidadBackup findByTurnos (String turnos);
-    public capacidadBackup findByPersonas (String personas);
-    public capacidadBackup findByCarpeta (String carpeta);
+public interface CapacidadBackupRepository extends CrudRepository<CapacidadBackup, String> {
+    public CapacidadBackup findByCedula (String cedula);
+    public CapacidadBackup findByNombreCompleto (String nombreCompleto);
+    public CapacidadBackup findByCargo (String cargo);
+    public CapacidadBackup findByCentroCosto (String centroCosto);
+    public CapacidadBackup findByNomina (String nomina);
+    public CapacidadBackup findByRegional (String regional);
+    public CapacidadBackup findByCiudadTrabajo (String ciudadTrabajo);
+    public CapacidadBackup findByRed (String red);
+    public CapacidadBackup findByCliente (String cliente);
+    public CapacidadBackup findByArea (String area);
+    public CapacidadBackup findBySubArea (String subArea);
+    public CapacidadBackup findByCodigoSap (String codigoSap);
+    public CapacidadBackup findByTipoDeMovil (String tipoDeMovil);
+    public CapacidadBackup findByTipoFacturacion (String tipoFacturacion);
+    public CapacidadBackup findByMovil (String movil);
+    public CapacidadBackup findByCoordinador (String coordinador);
+    public CapacidadBackup findByDirector (String director);
+    public CapacidadBackup findByContratista (String contratista);
+    public CapacidadBackup findByValorEsperado (String valorEsperado);
+    public CapacidadBackup findByPlaca (String placa);
+    public CapacidadBackup findByTipoCarro (String tipoCarro);
+    public CapacidadBackup findByFechaReporte (String fechaReporte);
+    public CapacidadBackup findByMes (String mes);
+    public CapacidadBackup findByAño (String año);
+    public CapacidadBackup findByTurnos (String turnos);
+    public CapacidadBackup findByPersonas (String personas);
+    public CapacidadBackup findByCarpeta (String carpeta);
 
-    @Query("SELECT c FROM capacidadBackup c ORDER BY c.fechaReporte DESC")
-    List<capacidadBackup> findAllOrderByFechaReporteDesc();
+    @Query("SELECT c FROM CapacidadBackup c ORDER BY c.fechaReporte DESC")
+    List<CapacidadBackup> findAllOrderByFechaReporteDesc();
 
     // @Transactional(readOnly = true)
     // @Query(value = "select * from users where name like %:nombre%", nativeQuery = true)

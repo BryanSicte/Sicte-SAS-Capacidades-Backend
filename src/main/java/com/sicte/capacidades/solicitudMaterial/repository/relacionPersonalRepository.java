@@ -3,25 +3,25 @@ package com.sicte.capacidades.solicitudMaterial.repository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.sicte.capacidades.solicitudMaterial.entity.relacionPersonal;;
+import com.sicte.capacidades.solicitudMaterial.entity.RelacionPersonal;
 
 @Repository
-public interface relacionPersonalRepository extends CrudRepository<relacionPersonal, String> {
-        public relacionPersonal findByDirector(String director);
+public interface RelacionPersonalRepository extends CrudRepository<RelacionPersonal, String> {
+        public RelacionPersonal findByDirector(String director);
 
-        public relacionPersonal findByCoordinador(String coordinador);
+        public RelacionPersonal findByCoordinador(String coordinador);
 
-        public relacionPersonal findByDireccion(String direccion);
+        public RelacionPersonal findByDireccion(String direccion);
 
-        public relacionPersonal findBySupervisor(String supervisor);
+        public RelacionPersonal findBySupervisor(String supervisor);
 
-        public relacionPersonal findByBodega(String bodega);
+        public RelacionPersonal findByBodega(String bodega);
 
-        public relacionPersonal findByCiudad(String ciudad);
+        public RelacionPersonal findByCiudad(String ciudad);
 
-        public relacionPersonal findByAnalistaLogistica(String analistaLogistica);
+        public RelacionPersonal findByAnalistaLogistica(String analistaLogistica);
 
-        public relacionPersonal findBySupervisorLogistica(String supervisorLogistica);
+        public RelacionPersonal findBySupervisorLogistica(String supervisorLogistica);
 
-        public relacionPersonal findByFacturacion(String facturacion);
+        public RelacionPersonal findByFacturacion(String facturacion);
 }

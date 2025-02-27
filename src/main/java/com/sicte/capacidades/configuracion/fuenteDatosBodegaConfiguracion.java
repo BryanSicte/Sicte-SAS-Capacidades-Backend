@@ -23,7 +23,7 @@ import jakarta.persistence.EntityManagerFactory;
     entityManagerFactoryRef = "bodegaEntityManager",
     transactionManagerRef = "bodegaTransactionManager"
 )
-public class fuenteDatosBodegaConfiguracion {
+public class FuenteDatosBodegaConfiguracion {
 
     @Bean(name = "bodegaDataSource")
     @ConfigurationProperties(prefix = "spring.datasource.bodega")

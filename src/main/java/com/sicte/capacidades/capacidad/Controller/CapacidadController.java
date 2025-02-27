@@ -5,100 +5,99 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.sicte.capacidades.capacidad.dto.cedulaNombreDto;
-import com.sicte.capacidades.capacidad.entity.agregarPersonal;
-import com.sicte.capacidades.capacidad.entity.capacidad;
-import com.sicte.capacidades.capacidad.entity.capacidadBackup;
-import com.sicte.capacidades.capacidad.entity.coordinador;
-import com.sicte.capacidades.capacidad.entity.movil;
-import com.sicte.capacidades.capacidad.entity.planta;
-import com.sicte.capacidades.capacidad.entity.plantaEnLinea;
-import com.sicte.capacidades.capacidad.repository.capacidadRepository.RoleRequest;
-import com.sicte.capacidades.capacidad.service.capacidadService;
+import com.sicte.capacidades.capacidad.dto.CedulaNombreDto;
+import com.sicte.capacidades.capacidad.entity.AgregarPersonal;
+import com.sicte.capacidades.capacidad.entity.Capacidad;
+import com.sicte.capacidades.capacidad.entity.CapacidadBackup;
+import com.sicte.capacidades.capacidad.entity.Coordinador;
+import com.sicte.capacidades.capacidad.entity.Movil;
+import com.sicte.capacidades.capacidad.entity.Planta;
+import com.sicte.capacidades.capacidad.entity.PlantaEnLinea;
+import com.sicte.capacidades.capacidad.repository.CapacidadRepository.RoleRequest;
+import com.sicte.capacidades.capacidad.service.CapacidadService;
 
 import java.util.List;
 import java.util.Map;
-import java.lang.reflect.Field;
 
 @CrossOrigin(origins = {"https://sictepowergmail.github.io/","https://BryanSicte.github.io","http://localhost:3000", "https://bryanutria.github.io/"})
 @RestController
 @RequestMapping("/capacidad")
-public class capacidadController {
+public class CapacidadController {
     @Autowired
-    private capacidadService capacidadService;
+    private CapacidadService capacidadService;
 
     @GetMapping("/TodoBackup")
-    public ResponseEntity<List<capacidadBackup>> getTodaCapacidadBackup() {
-        List<capacidadBackup> capacidades = capacidadService.encontrarTodoCapacidadBackup();
+    public ResponseEntity<List<CapacidadBackup>> getTodaCapacidadBackup() {
+        List<CapacidadBackup> capacidades = capacidadService.encontrarTodoCapacidadBackup();
         return new ResponseEntity<>(capacidades, HttpStatus.OK);
     }
 
     @PostMapping("/Todo")
-    public ResponseEntity<List<capacidad>> getTodaCapacidad(@RequestBody RoleRequest roleRequest) {
-        List<capacidad> capacidades = capacidadService.encontrarTodoCapacidad(roleRequest.getRole());
+    public ResponseEntity<List<Capacidad>> getTodaCapacidad(@RequestBody RoleRequest roleRequest) {
+        List<Capacidad> capacidades = capacidadService.encontrarTodoCapacidad(roleRequest.getRole());
         return new ResponseEntity<>(capacidades, HttpStatus.OK);
     }
 
     @GetMapping("/Movil")
-    public ResponseEntity<List<movil>> getTodaMovil() {
-        List<movil> movil = capacidadService.encontrarTodoMovil();
+    public ResponseEntity<List<Movil>> getTodaMovil() {
+        List<Movil> movil = capacidadService.encontrarTodoMovil();
         return new ResponseEntity<>(movil, HttpStatus.OK);
     }
 
     @GetMapping("/Planta")
-    public ResponseEntity<List<planta>> getTodaPlanta() {
-        List<planta> planta = capacidadService.encontrarTodoPlanta();
+    public ResponseEntity<List<Planta>> getTodaPlanta() {
+        List<Planta> planta = capacidadService.encontrarTodoPlanta();
         return new ResponseEntity<>(planta, HttpStatus.OK);
     }
 
     @GetMapping("/PlantaEnLinea")
-    public ResponseEntity<List<plantaEnLinea>> getTodaPlantaEnLinea() {
-        List<plantaEnLinea> plantaEnLinea = capacidadService.encontrarTodoPlantaEnLinea();
+    public ResponseEntity<List<PlantaEnLinea>> getTodaPlantaEnLinea() {
+        List<PlantaEnLinea> plantaEnLinea = capacidadService.encontrarTodoPlantaEnLinea();
         return new ResponseEntity<>(plantaEnLinea, HttpStatus.OK);
     }
 
     @GetMapping("/PlantaEnLineaCedulaNombre")
-    public ResponseEntity<List<cedulaNombreDto>> getCedulaNombrePlantaEnLinea() {
-        List<cedulaNombreDto> plantaEnLinea = capacidadService.encontrarCedulaYNombrePlantaEnLinea();
+    public ResponseEntity<List<CedulaNombreDto>> getCedulaNombrePlantaEnLinea() {
+        List<CedulaNombreDto> plantaEnLinea = capacidadService.encontrarCedulaYNombrePlantaEnLinea();
         return new ResponseEntity<>(plantaEnLinea, HttpStatus.OK);
     }
 
     @GetMapping("/Coordinador")
-    public ResponseEntity<List<coordinador>> getTodoCoordinador() {
-        List<coordinador> coordinador = capacidadService.encontrarTodoCoordinador();
+    public ResponseEntity<List<Coordinador>> getTodoCoordinador() {
+        List<Coordinador> coordinador = capacidadService.encontrarTodoCoordinador();
         return new ResponseEntity<>(coordinador, HttpStatus.OK);
     }
 
     @GetMapping("/UltimoMesBackup")
-    public ResponseEntity<List<capacidadBackup>> getTodaCapacidadUltimoMes() {
-        List<capacidadBackup> capacidades = capacidadService.encontrarTodoUltimoMes();
+    public ResponseEntity<List<CapacidadBackup>> getTodaCapacidadUltimoMes() {
+        List<CapacidadBackup> capacidades = capacidadService.encontrarTodoUltimoMes();
         return new ResponseEntity<>(capacidades, HttpStatus.OK);
     }
 
     @PostMapping("/ContinuaEnPlanta")
-    public ResponseEntity<List<capacidadBackup>> getTodaCapacidadContinuaEnPlanta(@RequestBody RoleRequest roleRequest) {
-        List<capacidadBackup> capacidades = capacidadService.encontrarTodoContinuaEnPlanta(roleRequest.getRole());
+    public ResponseEntity<List<CapacidadBackup>> getTodaCapacidadContinuaEnPlanta(@RequestBody RoleRequest roleRequest) {
+        List<CapacidadBackup> capacidades = capacidadService.encontrarTodoContinuaEnPlanta(roleRequest.getRole());
         return new ResponseEntity<>(capacidades, HttpStatus.OK);
     }
 
     @PostMapping("/ContinuaEnPlantaSinCapacidad")
-    public ResponseEntity<List<planta>> getEncontrarPlantasSinCapacidad(@RequestBody RoleRequest roleRequest) {
-        List<planta> plantas = capacidadService.encontrarPlantasSinCapacidad(roleRequest.getRole());
+    public ResponseEntity<List<Planta>> getEncontrarPlantasSinCapacidad(@RequestBody RoleRequest roleRequest) {
+        List<Planta> plantas = capacidadService.encontrarPlantasSinCapacidad(roleRequest.getRole());
         return new ResponseEntity<>(plantas, HttpStatus.OK);
     }
 
     @GetMapping("/NoContinuaEnPlanta")
-    public ResponseEntity<List<capacidadBackup>> getTodaCapacidadNoContinuaEnPlanta() {
-        List<capacidadBackup> capacidades = capacidadService.encontrarTodoNoContinuaEnPlanta();
+    public ResponseEntity<List<CapacidadBackup>> getTodaCapacidadNoContinuaEnPlanta() {
+        List<CapacidadBackup> capacidades = capacidadService.encontrarTodoNoContinuaEnPlanta();
         return new ResponseEntity<>(capacidades, HttpStatus.OK);
     }
 
     @PostMapping("/AgregarCapacidad")
-    public ResponseEntity<capacidad> crearNuevaCapacidad(@RequestBody capacidad nuevaCapacidad) {
+    public ResponseEntity<Capacidad> crearNuevaCapacidad(@RequestBody Capacidad nuevaCapacidad) {
         String fechaReporte = capacidadService.obtenerFechaReporte();
         nuevaCapacidad.setFechaReporte(fechaReporte);
 
-        capacidad capacidadGuardada = capacidadService.guardarCapacidad(nuevaCapacidad);
+        Capacidad capacidadGuardada = capacidadService.guardarCapacidad(nuevaCapacidad);
         return new ResponseEntity<>(capacidadGuardada, HttpStatus.CREATED);
     }
 
@@ -114,9 +113,9 @@ public class capacidadController {
     }
 
     @PostMapping("/agregarPersonal")
-    public ResponseEntity<?> agregarPersonal(@RequestBody agregarPersonal agregarPersonal) {
+    public ResponseEntity<?> agregarPersonal(@RequestBody AgregarPersonal agregarPersonal) {
         Map<String, Object> response = capacidadService.obtenerInformacionAgregarPersonal(agregarPersonal);
-        capacidad nuevaCapacidad = new capacidad();
+        Capacidad nuevaCapacidad = new Capacidad();
         
         nuevaCapacidad.setCedula((String) response.get("cedula"));
         nuevaCapacidad.setNombreCompleto((String) response.get("nombre"));
@@ -143,15 +142,15 @@ public class capacidadController {
         nuevaCapacidad.setPersonas((String) response.get("personas"));
         nuevaCapacidad.setCarpeta(response.get("carpeta") != null && !((String) response.get("carpeta")).isEmpty() ? (String) response.get("carpeta") : "null");
 
-        capacidad capacidadGuardada = capacidadService.guardarCapacidad(nuevaCapacidad);
+        Capacidad capacidadGuardada = capacidadService.guardarCapacidad(nuevaCapacidad);
         System.err.println(capacidadGuardada);
         return new ResponseEntity<>(capacidadGuardada, HttpStatus.CREATED);
     }
 
     @PostMapping("/agregarPersonalValidarPersonal")
-    public ResponseEntity<?> agregarPersonalValidarPersonal(@RequestBody agregarPersonal agregarPersonal) {
+    public ResponseEntity<?> agregarPersonalValidarPersonal(@RequestBody AgregarPersonal agregarPersonal) {
         Map<String, Object> response = capacidadService.obtenerInformacionValidarPersonal(agregarPersonal);
-        capacidad nuevaCapacidad = new capacidad();
+        Capacidad nuevaCapacidad = new Capacidad();
 
         nuevaCapacidad.setCedula((String) response.get("cedula"));
         nuevaCapacidad.setNombreCompleto((String) response.get("nombre"));
@@ -179,7 +178,7 @@ public class capacidadController {
         nuevaCapacidad.setCarpeta(response.get("carpeta") != null && !((String) response.get("carpeta")).isEmpty() ? (String) response.get("carpeta") : "null");
 
 
-        capacidad capacidadGuardada = capacidadService.guardarCapacidad(nuevaCapacidad);
+        Capacidad capacidadGuardada = capacidadService.guardarCapacidad(nuevaCapacidad);
         System.err.println(capacidadGuardada);
         return new ResponseEntity<>(capacidadGuardada, HttpStatus.CREATED);
     }

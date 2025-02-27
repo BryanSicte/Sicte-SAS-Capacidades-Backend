@@ -31,7 +31,7 @@ import jakarta.persistence.EntityManagerFactory;
     entityManagerFactoryRef = "aplicativoEntityManager",
     transactionManagerRef = "aplicativoTransactionManager"
 )
-public class fuenteDatosAplicativoConfiguracion {
+public class FuenteDatosAplicativoConfiguracion {
 
     @Primary
     @Bean(name = "aplicativoDataSource")

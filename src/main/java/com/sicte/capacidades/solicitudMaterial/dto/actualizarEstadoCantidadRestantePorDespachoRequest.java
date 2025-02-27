@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class actualizarEstadoCantidadRestantePorDespachoRequest {
+public class ActualizarEstadoCantidadRestantePorDespachoRequest {
     private List<Long> ids;
     private List<String> cantidades;
 

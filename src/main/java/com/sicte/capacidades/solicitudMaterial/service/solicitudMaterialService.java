@@ -5,36 +5,36 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sicte.capacidades.solicitudMaterial.entity.registrosSolicitudMaterial;
-import com.sicte.capacidades.solicitudMaterial.entity.registrosSolicitudMaterialEntregado;
-import com.sicte.capacidades.solicitudMaterial.entity.relacionPersonal;
-import com.sicte.capacidades.solicitudMaterial.repository.registrosSolicitudMaterialEntregadoRepository;
-import com.sicte.capacidades.solicitudMaterial.repository.registrosSolicitudMaterialRepository;
-import com.sicte.capacidades.solicitudMaterial.repository.relacionPersonalRepository;
+import com.sicte.capacidades.solicitudMaterial.entity.RegistrosSolicitudMaterial;
+import com.sicte.capacidades.solicitudMaterial.entity.RegistrosSolicitudMaterialEntregado;
+import com.sicte.capacidades.solicitudMaterial.entity.RelacionPersonal;
+import com.sicte.capacidades.solicitudMaterial.repository.RegistrosSolicitudMaterialEntregadoRepository;
+import com.sicte.capacidades.solicitudMaterial.repository.RegistrosSolicitudMaterialRepository;
+import com.sicte.capacidades.solicitudMaterial.repository.RelacionPersonalRepository;
 
 @Service
-public class solicitudMaterialService{
+public class SolicitudMaterialService{
     @Autowired
-    registrosSolicitudMaterialRepository registrosRepository;
+    RegistrosSolicitudMaterialRepository registrosRepository;
     @Autowired
-    registrosSolicitudMaterialEntregadoRepository registrosEntregaRepository;
+    RegistrosSolicitudMaterialEntregadoRepository registrosEntregaRepository;
     @Autowired
-    relacionPersonalRepository relacionPersonalRepository;
+    RelacionPersonalRepository relacionPersonalRepository;
 
-    public registrosSolicitudMaterialEntregado guardarRegistroEntregado(registrosSolicitudMaterialEntregado registro) {
+    public RegistrosSolicitudMaterialEntregado guardarRegistroEntregado(RegistrosSolicitudMaterialEntregado registro) {
         return registrosEntregaRepository.save(registro);
     }
 
-    public List<registrosSolicitudMaterialEntregado> encontrarTodoRegistrosEntregado() {
-        return (List<registrosSolicitudMaterialEntregado>) registrosEntregaRepository.findAll();
+    public List<RegistrosSolicitudMaterialEntregado> encontrarTodoRegistrosEntregado() {
+        return (List<RegistrosSolicitudMaterialEntregado>) registrosEntregaRepository.findAll();
     }
 
-    public registrosSolicitudMaterial guardarRegistro(registrosSolicitudMaterial registro) {
+    public RegistrosSolicitudMaterial guardarRegistro(RegistrosSolicitudMaterial registro) {
         return registrosRepository.save(registro);
     }
 
-    public List<registrosSolicitudMaterial> encontrarTodoRegistros() {
-        return (List<registrosSolicitudMaterial>) registrosRepository.findAll();
+    public List<RegistrosSolicitudMaterial> encontrarTodoRegistros() {
+        return (List<RegistrosSolicitudMaterial>) registrosRepository.findAll();
     }
 
     public void actualizarEstadoAnalista(Long id, String estado, String observaciones, String fecha) {
@@ -61,8 +61,8 @@ public class solicitudMaterialService{
         registrosRepository.actualizarEstadoEntregaBodegaPDFs(id, namePdfs);
     }
 
-    public List<relacionPersonal> encontrarTodoRelacionPersonal() {
-        return (List<relacionPersonal>) relacionPersonalRepository.findAll();
+    public List<RelacionPersonal> encontrarTodoRelacionPersonal() {
+        return (List<RelacionPersonal>) relacionPersonalRepository.findAll();
     }
 
     public void actualizarEstadoCantidaDisponibleMaterial(Long id, String cantidad) {

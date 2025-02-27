@@ -13,7 +13,7 @@ import jakarta.persistence.Id;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class agregarPersonal {
+public class AgregarPersonal {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

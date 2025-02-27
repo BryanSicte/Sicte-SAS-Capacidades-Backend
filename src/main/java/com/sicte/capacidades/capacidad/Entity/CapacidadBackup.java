@@ -17,7 +17,7 @@ import jakarta.persistence.Table;
 @Table(name = "capacidades_backup")
 @NoArgsConstructor
 @AllArgsConstructor
-public class capacidadBackup {
+public class CapacidadBackup {
     // @Id
     // @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

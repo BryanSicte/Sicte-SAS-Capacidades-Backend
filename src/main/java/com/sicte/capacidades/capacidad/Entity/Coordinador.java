@@ -16,7 +16,7 @@ import jakarta.persistence.Table;
 @Table(name = "coordinador")
 @NoArgsConstructor
 @AllArgsConstructor
-public class coordinador {
+public class Coordinador {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;

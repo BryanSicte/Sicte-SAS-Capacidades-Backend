@@ -3,39 +3,39 @@ package com.sicte.capacidades.bodega.repository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.sicte.capacidades.bodega.entity.kgprod;
+import com.sicte.capacidades.bodega.entity.Kgprod;
 
 @Repository
-public interface kgprodRepository extends CrudRepository<kgprod, String> {
-    public kgprod findByCodigo(String codigo);
-    public kgprod findByDescrip(String descrip);
-    public kgprod findByUnimed(String unimed);
-    public kgprod findBySerial(String serial);
-    public kgprod findByNvmin(String nvmin);
-    public kgprod findByCandisp(String candisp);
-    public kgprod findByCantent(String cantent);
-    public kgprod findByCantres(String cantres);
-    public kgprod findByCantove(String cantove);
-    public kgprod findByMovilres(String movilres);
-    public kgprod findByMovilove(String movilove);
-    public kgprod findByMovilman(String movilman);
-    public kgprod findByFchinvfis(String fchinvfis);
-    public kgprod findByBodres(String bodres);
-    public kgprod findByBodove(String bodove);
-    public kgprod findByCantaco(String cantaco);
-    public kgprod findByMovilaco(String movilaco);
-    public kgprod findByBodaco(String bodaco);
-    public kgprod findByDeltaifbo(String deltaifbo);
-    public kgprod findByDeltaifmv(String deltaifmv);
-    public kgprod findByPepsDeBod(String pepsDeBod);
-    public kgprod findByUbicacion(String ubicacion);
-    public kgprod findByIndInstaladores(String indInstaladores);
-    public kgprod findByInvfis(String invfis);
-    public kgprod findByLoteRolloNada(String loteRolloNada);
-    public kgprod findByIndComprado(String indComprado);
-    public kgprod findByFechaDescarga(String fechaDescarga);
-    public kgprod findByBodega(String bodega);
-    public kgprod findByIndComprado2(String indComprado2);
+public interface KgprodRepository extends CrudRepository<Kgprod, String> {
+    public Kgprod findByCodigo(String codigo);
+    public Kgprod findByDescrip(String descrip);
+    public Kgprod findByUnimed(String unimed);
+    public Kgprod findBySerial(String serial);
+    public Kgprod findByNvmin(String nvmin);
+    public Kgprod findByCandisp(String candisp);
+    public Kgprod findByCantent(String cantent);
+    public Kgprod findByCantres(String cantres);
+    public Kgprod findByCantove(String cantove);
+    public Kgprod findByMovilres(String movilres);
+    public Kgprod findByMovilove(String movilove);
+    public Kgprod findByMovilman(String movilman);
+    public Kgprod findByFchinvfis(String fchinvfis);
+    public Kgprod findByBodres(String bodres);
+    public Kgprod findByBodove(String bodove);
+    public Kgprod findByCantaco(String cantaco);
+    public Kgprod findByMovilaco(String movilaco);
+    public Kgprod findByBodaco(String bodaco);
+    public Kgprod findByDeltaifbo(String deltaifbo);
+    public Kgprod findByDeltaifmv(String deltaifmv);
+    public Kgprod findByPepsDeBod(String pepsDeBod);
+    public Kgprod findByUbicacion(String ubicacion);
+    public Kgprod findByIndInstaladores(String indInstaladores);
+    public Kgprod findByInvfis(String invfis);
+    public Kgprod findByLoteRolloNada(String loteRolloNada);
+    public Kgprod findByIndComprado(String indComprado);
+    public Kgprod findByFechaDescarga(String fechaDescarga);
+    public Kgprod findByBodega(String bodega);
+    public Kgprod findByIndComprado2(String indComprado2);
 
     // @Transactional(readOnly = true)
     // @Query(value = "select * from users where name like %:nombre%", nativeQuery = true)

@@ -7,25 +7,25 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.sicte.capacidades.usuarios.entity.user;
+import com.sicte.capacidades.usuarios.entity.User;
 
 @Repository
-public interface userRepository extends CrudRepository<user, String> {
-    public user findByNombre(String nombre);
+public interface UserRepository extends CrudRepository<User, String> {
+    public User findByNombre(String nombre);
 
-    public user findByCorreo(String correo);
+    public User findByCorreo(String correo);
 
-    public user findByCedula(String cedula);
+    public User findByCedula(String cedula);
 
-    public user findByRol(String rol);
+    public User findByRol(String rol);
 
-    public user findByTelefono(String telefono);
+    public User findByTelefono(String telefono);
 
-    public user findByContrasena(String contrasena);
+    public User findByContrasena(String contrasena);
 
     @Modifying
     @Transactional
-    @Query("UPDATE user s SET s.contrasena = :contrasena WHERE s.correo = :email")
-    void actualizarContrasena(@Param("email") String email, @Param("contrasena") String contrasena);
+    @Query("UPDATE User s SET s.contrasena = :contrasena WHERE s.correo = :email")
+    void ActualizarContrasena(@Param("email") String email, @Param("contrasena") String contrasena);
 
 }

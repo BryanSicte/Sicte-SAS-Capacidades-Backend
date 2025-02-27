@@ -3,35 +3,35 @@ package com.sicte.capacidades.reporteMaterialFerretero.repository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.sicte.capacidades.reporteMaterialFerretero.entity.reporteMaterial;
+import com.sicte.capacidades.reporteMaterialFerretero.entity.ReporteMaterial;
 
 @Repository
-public interface reporteMaterialRepository extends CrudRepository<reporteMaterial, String> {
-        public reporteMaterial findByFecha(String fecha);
+public interface ReporteMaterialRepository extends CrudRepository<ReporteMaterial, String> {
+        public ReporteMaterial findByFecha(String fecha);
 
-        public reporteMaterial findByCedula(String cedula);
+        public ReporteMaterial findByCedula(String cedula);
 
-        public reporteMaterial findByNombre(String nombre);
+        public ReporteMaterial findByNombre(String nombre);
 
-        public reporteMaterial findByOt(String ot);
+        public ReporteMaterial findByOt(String ot);
 
-        public reporteMaterial findByCodigoMovil(String codigoMovil);
+        public ReporteMaterial findByCodigoMovil(String codigoMovil);
 
-        public reporteMaterial findByMovil(String movil);
+        public ReporteMaterial findByMovil(String movil);
 
-        public reporteMaterial findByResponsable(String responsable);
+        public ReporteMaterial findByResponsable(String responsable);
 
-        public reporteMaterial findByNodo(String nodo);
+        public ReporteMaterial findByNodo(String nodo);
 
-        public reporteMaterial findByCodigoSap(String codigoSap);
+        public ReporteMaterial findByCodigoSap(String codigoSap);
 
-        public reporteMaterial findByDescripcion(String descripcion);
+        public ReporteMaterial findByDescripcion(String descripcion);
 
-        public reporteMaterial findByUnidadMedida(String unidadMedida);
+        public ReporteMaterial findByUnidadMedida(String unidadMedida);
 
-        public reporteMaterial findByCantidad(String cantidad);
+        public ReporteMaterial findByCantidad(String cantidad);
 
-        public reporteMaterial findBySerial(String serial);
+        public ReporteMaterial findBySerial(String serial);
 
-        public reporteMaterial findByFirma(String firma);
+        public ReporteMaterial findByFirma(String firma);
 }
