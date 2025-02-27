@@ -1,9 +1,11 @@
-FROM maven:3.8.6-openjdk-17 AS build
+# Etapa 1: Construcción del WAR con Maven y JDK 21
+FROM maven:3.9.6-eclipse-temurin-21 AS build
 WORKDIR /app
 COPY . .
 RUN mvn clean package -DskipTests
 
-FROM openjdk:17
+# Etapa 2: Imagen final con OpenJDK 21
+FROM eclipse-temurin:21-jdk
 WORKDIR /app
 COPY --from=build /app/target/*.war app.war
 CMD ["java", "-jar", "app.war"]
