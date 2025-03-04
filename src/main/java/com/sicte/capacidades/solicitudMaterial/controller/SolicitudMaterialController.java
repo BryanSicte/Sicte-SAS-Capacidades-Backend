@@ -1,6 +1,8 @@
 package com.sicte.capacidades.solicitudMaterial.controller;
 
+import java.io.File;
 import java.io.BufferedReader;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
@@ -373,13 +375,27 @@ public class SolicitudMaterialController {
     }
 
     @PostMapping("/leerPDF")
-    public String procesarPdf(@RequestBody RutaPDFRequest rutaPDFRequest) {
+    public String procesarPdf(@RequestBody RutaPDFRequest rutaPDFRequest) throws Exception {
         String pythonScriptPath = "/app/scripts/Leer_PDF.py";
-        String rutaPdf = rutaPDFRequest.getRutaPdf();
-        String driveId = folderId;
+        String nombrePDF = rutaPDFRequest.getRutaPdf();
+        String tempFolder = "/app/uploads/";
+        String rutaPdf = tempFolder + nombrePDF;
+
+        byte[] pdfData;
+        try {
+            pdfData = GoogleDriveService.getFileByName(nombrePDF, folderId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "{\"error\": \"Error al obtener el archivo PDF\"}";
+        }
 
         try {
-            ProcessBuilder processBuilder = new ProcessBuilder("python3", pythonScriptPath, rutaPdf, driveId);
+            File archivoPdf = new File(rutaPdf);
+            try (FileOutputStream fos = new FileOutputStream(archivoPdf)) {
+                fos.write(pdfData);    
+            }
+
+            ProcessBuilder processBuilder = new ProcessBuilder("python3", pythonScriptPath, rutaPdf);
             Process process = processBuilder.start();
 
             // Captura la salida del script
