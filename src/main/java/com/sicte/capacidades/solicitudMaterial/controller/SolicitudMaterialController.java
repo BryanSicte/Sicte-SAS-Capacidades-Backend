@@ -1,5 +1,24 @@
 package com.sicte.capacidades.solicitudMaterial.controller;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.sicte.capacidades.drive.GoogleDriveService;
 import com.sicte.capacidades.solicitudMaterial.dto.ActualizarEstadoCantidadRestantePorDespachoRequest;
 import com.sicte.capacidades.solicitudMaterial.dto.ActualizarEstadoDirectorRequest;
 import com.sicte.capacidades.solicitudMaterial.dto.NamePDFSave;
@@ -8,22 +27,6 @@ import com.sicte.capacidades.solicitudMaterial.entity.RegistrosSolicitudMaterial
 import com.sicte.capacidades.solicitudMaterial.entity.RegistrosSolicitudMaterialEntregado;
 import com.sicte.capacidades.solicitudMaterial.entity.RelacionPersonal;
 import com.sicte.capacidades.solicitudMaterial.service.SolicitudMaterialService;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.core.io.UrlResource;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.file.Paths;
-import java.util.List;
 
 @CrossOrigin(origins = { "https://sictepowergmail.github.io/", "https://BryanSicte.github.io",
         "https://bryanutria.github.io/",
@@ -35,6 +38,7 @@ public class SolicitudMaterialController {
     private SolicitudMaterialService solicitudMaterialService;
 
     private static final String LOCAL_UPLOAD_COMPRIMIDOS = "C:/Users/Juan/Nextcloud/APP Material/COMPRIMIDOS/";
+    private final String folderId = "13wCWGhH7UkPJeFA_uciQg_-s_WjBeAnb"; //carpeta Solicitud Material
     private static final String LOCAL_UPLOAD_KMZ = "C:/Users/Juan/Nextcloud/APP Material/KMZ/";
     private static final String LOCAL_UPLOAD_PDF = "C:/Users/Juan/Nextcloud/APP Material/PDF/";
     private static final String LOCAL_UPLOAD_PDF_2 = "C:\\Users\\Juan\\Nextcloud\\APP Material\\PDF\\";
@@ -48,12 +52,10 @@ public class SolicitudMaterialController {
 
         try {
             String newFileName = filename.endsWith(".kmz") ? filename : filename + ".kmz";
-            File destinationFile = new File(LOCAL_UPLOAD_KMZ + newFileName);
-            destinationFile.getParentFile().mkdirs();
-            file.transferTo(destinationFile);
+            String fileId = GoogleDriveService.uploadFile(file, newFileName, folderId);
 
-            return ResponseEntity.ok("Archivo subido con éxito");
-        } catch (IOException e) {
+            return ResponseEntity.ok("Archivo subido con éxito. ID: " + fileId);
+        } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al subir el archivo");
         }
@@ -73,12 +75,11 @@ public class SolicitudMaterialController {
             } else {
                 newFileName = filename + ".zip";
             }
-            File destinationFile = new File(LOCAL_UPLOAD_COMPRIMIDOS + newFileName);
-            destinationFile.getParentFile().mkdirs();
-            file.transferTo(destinationFile);
 
-            return ResponseEntity.ok("Archivo subido con éxito");
-        } catch (IOException e) {
+            String fileId = GoogleDriveService.uploadFile(file, newFileName, folderId);
+
+            return ResponseEntity.ok("Archivo subido con éxito. ID: " + fileId);
+        } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al subir el archivo");
         }
@@ -98,12 +99,10 @@ public class SolicitudMaterialController {
             } else {
                 newFileName = filename + ".pdf";
             }
-            File destinationFile = new File(LOCAL_UPLOAD_PDF + newFileName);
-            destinationFile.getParentFile().mkdirs();
-            file.transferTo(destinationFile);
+            String fileId = GoogleDriveService.uploadFile(file, newFileName, folderId);
 
-            return ResponseEntity.ok("Archivo subido con éxito");
-        } catch (IOException e) {
+            return ResponseEntity.ok("Archivo subido con éxito. ID: " + fileId);
+        } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al subir el archivo");
         }
@@ -139,19 +138,19 @@ public class SolicitudMaterialController {
     }
 
     @GetMapping("/ObtenerKmz")
-    public ResponseEntity<Resource> getKmz(@RequestParam String fileName) {
+    public ResponseEntity<byte[]> getKmz(@RequestParam String fileName) {
         try {
-            File file = new File(Paths.get(LOCAL_UPLOAD_KMZ, fileName).toUri());
-            if (!file.exists()) {
+            byte[] imageData = GoogleDriveService.getFileByName(fileName, folderId);
+
+            if (imageData == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
             }
 
             String contentType = getContentTypeKmz(fileName);
 
-            UrlResource resource = new UrlResource(file.toURI());
             return ResponseEntity.ok()
                     .header(HttpHeaders.CONTENT_TYPE, contentType)
-                    .body(resource);
+                    .body(imageData);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
@@ -165,19 +164,19 @@ public class SolicitudMaterialController {
     }
 
     @GetMapping("/ObtenerDiseño")
-    public ResponseEntity<Resource> getDiseño(@RequestParam String fileName) {
+    public ResponseEntity<byte[]> getDiseño(@RequestParam String fileName) {
         try {
-            File file = new File(Paths.get(LOCAL_UPLOAD_COMPRIMIDOS, fileName).toUri());
-            if (!file.exists()) {
+            byte[] imageData = GoogleDriveService.getFileByName(fileName, folderId);
+
+            if (imageData == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
             }
 
             String contentType = getContentTypeDiseño(fileName);
 
-            UrlResource resource = new UrlResource(file.toURI());
             return ResponseEntity.ok()
                     .header(HttpHeaders.CONTENT_TYPE, contentType)
-                    .body(resource);
+                    .body(imageData);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
@@ -195,19 +194,19 @@ public class SolicitudMaterialController {
     }
 
     @GetMapping("/ObtenerPDF")
-    public ResponseEntity<Resource> getPDF(@RequestParam String fileName) {
+    public ResponseEntity<byte[]> getPDF(@RequestParam String fileName) {
         try {
-            File file = new File(Paths.get(LOCAL_UPLOAD_PDF, fileName).toUri());
-            if (!file.exists()) {
+            byte[] imageData = GoogleDriveService.getFileByName(fileName, folderId);
+
+            if (imageData == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
             }
 
             String contentType = getContentTypePdf(fileName);
 
-            UrlResource resource = new UrlResource(file.toURI());
             return ResponseEntity.ok()
                     .header(HttpHeaders.CONTENT_TYPE, contentType)
-                    .body(resource);
+                    .body(imageData);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
@@ -379,11 +378,12 @@ public class SolicitudMaterialController {
 
     @PostMapping("/leerPDF")
     public String procesarPdf(@RequestBody RutaPDFRequest rutaPDFRequest) {
-        String pythonScriptPath = "C:\\Users\\Juan\\Documents\\Desarrollos\\Leer PDFs\\Leer PDF.py";
-        String rutaPdf = LOCAL_UPLOAD_PDF_2 + rutaPDFRequest.getRutaPdf();
+        String pythonScriptPath = "/app/scripts/Leer_PDF.py";
+        String rutaPdf = rutaPDFRequest.getRutaPdf();
+        String driveId = folderId;
 
         try {
-            ProcessBuilder processBuilder = new ProcessBuilder("python", pythonScriptPath, rutaPdf);
+            ProcessBuilder processBuilder = new ProcessBuilder("python3", pythonScriptPath, rutaPdf, driveId);
             Process process = processBuilder.start();
 
             // Captura la salida del script
