@@ -9,9 +9,11 @@ public class GoogleDriveController {
     private final String folderId = "1514Cz3GVufGhvpKo7pWiPXCPAzmJCC9p";
 
     @PostMapping("/upload")
-    public String uploadFile(@RequestParam("file") MultipartFile file) {
+    public String uploadFile(@RequestParam("file") MultipartFile file, 
+                             @RequestParam("filename") String filename, 
+                             @RequestParam("folderId") String folderId) {
         try {
-            return GoogleDriveService.uploadFile(file, folderId);
+            return GoogleDriveService.uploadFile(file, filename, folderId);
         } catch (Exception e) {
             return "Error al subir archivo: " + e.getMessage();
         }
