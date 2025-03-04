@@ -379,6 +379,12 @@ public class SolicitudMaterialController {
         String pythonScriptPath = "/app/scripts/Leer_PDF.py";
         String nombrePDF = rutaPDFRequest.getRutaPdf();
         String tempFolder = "/app/uploads/";
+
+        File uploadDir = new File(tempFolder);
+        if (!uploadDir.exists()) {
+            uploadDir.mkdirs();
+        }
+
         String rutaPdf = tempFolder + nombrePDF;
 
         byte[] pdfData;
