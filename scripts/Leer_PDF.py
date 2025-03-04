@@ -15,7 +15,7 @@ def descargar_pdf(drive_id, nombre_pdf):
     url = f"https://drive.google.com/uc?id={drive_id}"
 
     try:
-        gdown.download(url, ruta_pdf, quiet=False)
+        gdown.download(url, ruta_pdf, quiet=False, fuzzy=True)
         return ruta_pdf
     except Exception as e:
         return None
