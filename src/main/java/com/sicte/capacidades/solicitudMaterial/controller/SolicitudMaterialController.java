@@ -410,11 +410,25 @@ public class SolicitudMaterialController {
             process.waitFor();
             reader.close();
 
+            // Capturar la salida de error del script
+            BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+            StringBuilder errorOutput = new StringBuilder();
+            
+            while ((line = errorReader.readLine()) != null) {
+                errorOutput.append(line).append("\n");
+            }
+            errorReader.close();
+
+            int exitCode = process.waitFor();
+            if (exitCode != 0) {
+                return "{\"error\": \"Error en el script de Python\", \"detalle\": \"" + errorOutput.toString() + "\"}";
+            }
+
             return output.toString();
 
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
-            return "{\"error\": \"Error al procesar el PDF\"}";
+            return "{\"error\": \"Error al procesar el PDF\", \"detalle\": \"" + e.getMessage() + "\"}";
         }
     }
 
