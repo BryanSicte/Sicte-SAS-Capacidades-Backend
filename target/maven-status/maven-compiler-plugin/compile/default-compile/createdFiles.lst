@@ -43,6 +43,7 @@ com\sicte\capacidades\supervision\repository\RegistrosRepository.class
 com\sicte\capacidades\reporteMaterialFerretero\service\ReporteMaterialFerreteroService.class
 com\sicte\capacidades\capacidad\dto\CedulaNombreDto.class
 com\sicte\capacidades\solicitudMaterial\dto\ActualizarEstadoCantidadRestantePorDespachoRequest.class
+com\sicte\capacidades\drive\GoogleDriveService.class
 com\sicte\capacidades\inventarioMaterial\controller\InventarioMaterialController.class
 com\sicte\capacidades\usuarios\entity\User.class
 com\sicte\capacidades\reporteMaterialFerretero\repository\ReporteMaterialRepository.class
@@ -53,6 +54,7 @@ com\sicte\capacidades\solicitudMaterial\entity\RegistrosSolicitudMaterial.class
 com\sicte\capacidades\solicitudMaterial\repository\RegistrosSolicitudMaterialRepository.class
 com\sicte\capacidades\solicitudMaterial\repository\RegistrosSolicitudMaterialEntregadoRepository.class
 com\sicte\capacidades\supervision\entity\Registros.class
+com\sicte\capacidades\drive\GoogleDriveController.class
 com\sicte\capacidades\capacidad\repository\CapacidadRepository.class
 com\sicte\capacidades\solicitudMaterial\dto\ActualizarEstadoDirectorRequest.class
 com\sicte\capacidades\bodega\entity\Kgprod.class
