@@ -37,11 +37,7 @@ public class SolicitudMaterialController {
     @Autowired
     private SolicitudMaterialService solicitudMaterialService;
 
-    private static final String LOCAL_UPLOAD_COMPRIMIDOS = "C:/Users/Juan/Nextcloud/APP Material/COMPRIMIDOS/";
     private final String folderId = "13wCWGhH7UkPJeFA_uciQg_-s_WjBeAnb"; //carpeta Solicitud Material
-    private static final String LOCAL_UPLOAD_KMZ = "C:/Users/Juan/Nextcloud/APP Material/KMZ/";
-    private static final String LOCAL_UPLOAD_PDF = "C:/Users/Juan/Nextcloud/APP Material/PDF/";
-    private static final String LOCAL_UPLOAD_PDF_2 = "C:\\Users\\Juan\\Nextcloud\\APP Material\\PDF\\";
 
     @PostMapping("/cargarKmz")
     public ResponseEntity<String> cargarKmz(@RequestParam("file") MultipartFile file,

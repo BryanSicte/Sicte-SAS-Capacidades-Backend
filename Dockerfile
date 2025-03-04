@@ -10,7 +10,7 @@ WORKDIR /app
 
 # Instalar Python
 RUN apt-get update && apt-get install -y python3 python3-pip
-
+RUN pip3 install PyPDF2 pandas gdown
 
 COPY --from=build /app/target/*.war app.war
 COPY scripts/Leer_PDF.py /app/scripts/Leer_PDF.py 
