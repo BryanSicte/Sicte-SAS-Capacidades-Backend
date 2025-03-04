@@ -3,6 +3,7 @@ package com.sicte.capacidades.supervision.controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.sicte.capacidades.drive.GoogleDriveService;
 import com.sicte.capacidades.supervision.dto.PlacaFechaDto;
 import com.sicte.capacidades.supervision.entity.Registros;
 import com.sicte.capacidades.supervision.service.SupervisionService;
@@ -26,7 +27,7 @@ public class SupervisionController {
     @Autowired
     private SupervisionService supervisionService;
 
-    private static final String LOCAL_UPLOAD_DIR = "C:/Users/Juan/Nextcloud/APP Supervision/";
+    private final String folderId = "1514Cz3GVufGhvpKo7pWiPXCPAzmJCC9p"; //carpeta supervision
 
     @PostMapping("/cargarImagen")
     public ResponseEntity<String> cargarImagen(@RequestParam("file") MultipartFile file, @RequestParam("filename") String filename) {
@@ -35,14 +36,10 @@ public class SupervisionController {
         }
 
         try {
-            String newFileName = filename;
-            // Guarda el archivo en el servidor con el nuevo nombre
-            File destinationFile = new File(LOCAL_UPLOAD_DIR + newFileName);
-            destinationFile.getParentFile().mkdirs(); // Crea directorios si no existen
-            file.transferTo(destinationFile);
+            String fileId = GoogleDriveService.uploadFile(file, filename, folderId);
 
-            return ResponseEntity.ok("Archivo subido con éxito");
-        } catch (IOException e) {
+            return ResponseEntity.ok("Archivo subido con éxito. ID: " + fileId);
+        } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al subir el archivo");
         }
@@ -67,19 +64,21 @@ public class SupervisionController {
     }
 
     @GetMapping("/ObtenerImagen")
-    public ResponseEntity<Resource> getImage(@RequestParam String imageName) {
+    public ResponseEntity<byte[]> getImage(@RequestParam String imageName) {
         try {
-            File file = new File(Paths.get(LOCAL_UPLOAD_DIR, imageName).toUri());
-            if (!file.exists()) {
+            // Busca la imagen en Google Drive
+            byte[] imageData = GoogleDriveService.getFileByName(imageName, folderId);
+
+            if (imageData == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
             }
 
+            // Determinar el tipo de contenido
             String contentType = getContentType(imageName);
 
-            UrlResource resource = new UrlResource(file.toURI());
             return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_TYPE, contentType) // Ajusta el tipo de contenido según el formato de la imagen
-                    .body(resource);
+                    .header(HttpHeaders.CONTENT_TYPE, contentType)
+                    .body(imageData);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }

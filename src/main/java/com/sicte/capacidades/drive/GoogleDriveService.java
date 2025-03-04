@@ -9,6 +9,7 @@ import com.google.api.services.drive.model.FileList;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
+import java.security.GeneralSecurityException;
 import java.util.Collections;
 
 public class GoogleDriveService {
@@ -38,11 +39,11 @@ public class GoogleDriveService {
                 .build();
     }
 
-    public static String uploadFile(MultipartFile file, String folderId) throws Exception {
+    public static String uploadFile(MultipartFile file, String filename, String folderId) throws Exception {
         Drive driveService = getDriveService();
 
         File fileMetadata = new File();
-        fileMetadata.setName(file.getOriginalFilename());
+        fileMetadata.setName(filename);
         fileMetadata.setParents(Collections.singletonList(folderId));
 
         FileContent mediaContent = new FileContent(file.getContentType(), convertMultiPartToFile(file));
@@ -73,4 +74,27 @@ public class GoogleDriveService {
             System.out.println("📄 " + file.getName() + " (" + file.getWebViewLink() + ")");
         }
     }
+
+    public static byte[] getFileByName(String imageName, String folderId) throws Exception {
+        Drive driveService = getDriveService(); // Asegúrate de inicializar el servicio de Google Drive
+    
+        // Buscar el archivo por nombre en la carpeta específica
+        String query = String.format("name = '%s' and '%s' in parents", imageName, folderId);
+        FileList result = driveService.files().list()
+                .setQ(query)
+                .setFields("files(id)")
+                .execute();
+    
+        if (result.getFiles().isEmpty()) {
+            return null; // No se encontró la imagen
+        }
+    
+        String fileId = result.getFiles().get(0).getId();
+    
+        // Descargar el archivo
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        driveService.files().get(fileId).executeMediaAndDownloadTo(outputStream);
+        return outputStream.toByteArray();
+    }
+    
 }
