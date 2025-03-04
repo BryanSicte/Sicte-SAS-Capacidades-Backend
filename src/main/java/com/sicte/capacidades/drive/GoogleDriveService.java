@@ -6,7 +6,6 @@ import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
-
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
@@ -14,10 +13,20 @@ import java.util.Collections;
 
 public class GoogleDriveService {
     private static final String APPLICATION_NAME = "MyApp";
-    private static final String CREDENTIALS_FILE_PATH = "credentials.json";
 
     private static Drive getDriveService() throws Exception {
-        InputStream in = new FileInputStream(CREDENTIALS_FILE_PATH);
+        String credentialsJson = System.getenv("GOOGLE_CREDENTIALS");
+        if (credentialsJson == null) {
+            throw new RuntimeException("La variable de entorno GOOGLE_CREDENTIALS no está definida.");
+        }
+
+        // Crear un archivo temporal para guardar las credenciales
+        java.io.File tempFile = java.io.File.createTempFile("credentials", ".json");
+        try (FileWriter writer = new FileWriter(tempFile)) {
+            writer.write(credentialsJson);
+        }
+
+        InputStream in = new FileInputStream(tempFile);
         GoogleCredential credential = GoogleCredential.fromStream(in)
                 .createScoped(Collections.singleton(DriveScopes.DRIVE));
 
@@ -60,7 +69,7 @@ public class GoogleDriveService {
                 .setFields("files(id, name, webViewLink, mimeType)")
                 .execute();
 
-        for (com.google.api.services.drive.model.File file : result.getFiles()) {
+        for (File file : result.getFiles()) {
             System.out.println("📄 " + file.getName() + " (" + file.getWebViewLink() + ")");
         }
     }
