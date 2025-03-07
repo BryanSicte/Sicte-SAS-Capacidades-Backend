@@ -8,7 +8,6 @@ import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -28,14 +27,12 @@ import jakarta.persistence.EntityManagerFactory;
 )
 public class FuenteDatosGestionHumanaConfiguracion {
 
-    @Primary
     @Bean(name = "gestionHumanaDataSource")
     @ConfigurationProperties(prefix = "spring.datasource.gestionhumana")
     public DataSource gestionHumanaDataSourceDataSource() {
         return DataSourceBuilder.create().build();
     }
 
-    @Primary
     @Bean(name = "gestionHumanaEntityManager")
     public LocalContainerEntityManagerFactoryBean gestionHumanaDataSourceEntityManagerFactory(
             EntityManagerFactoryBuilder builder, @Qualifier("gestionHumanaDataSource") DataSource dataSource) {
@@ -46,7 +43,6 @@ public class FuenteDatosGestionHumanaConfiguracion {
                 .build();
     }
 
-    @Primary
     @Bean(name = "gestionHumanaTransactionManager")
     public PlatformTransactionManager gestionHumanaDataSourceTransactionManager(
             @Qualifier("gestionHumanaEntityManager") EntityManagerFactory entityManagerFactory) {
