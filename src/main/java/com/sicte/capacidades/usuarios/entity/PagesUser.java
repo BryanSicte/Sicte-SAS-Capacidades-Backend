@@ -64,6 +64,8 @@ public class PagesUser {
     private String indicadoresG1Mantenimiento;
     @Column(name = "Indicadores Nps")
     private String indicadoresNps;
+    @Column(name = "Indicadores G2G8 Masivo Centro")
+    private String indicadoresG2G8MasivoCentro;
     @Column(name = "Ssta Ssta")
     private String sstaSsta;
     @Column(name = "Ssta Curso De Alturas")

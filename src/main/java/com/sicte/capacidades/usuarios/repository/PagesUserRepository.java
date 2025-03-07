@@ -30,6 +30,7 @@ public interface PagesUserRepository extends CrudRepository<PagesUser, String> {
     public PagesUser findByIndicadoresHistoricoKpi(String indicadoresHistoricoKpi);
     public PagesUser findByIndicadoresG1Mantenimiento(String indicadoresG1Mantenimiento);
     public PagesUser findByIndicadoresNps(String indicadoresNps);
+    public PagesUser findByIndicadoresG2G8MasivoCentro(String indicadoresG2G8MasivoCentro);
     public PagesUser findBySstaSsta(String sstaSsta);
     public PagesUser findBySstaCursoDeAlturas(String sstaCursoDeAlturas);
     public PagesUser findBySstaEntregasPendientesDotacion(String sstaEntregasPendientesDotacion);
