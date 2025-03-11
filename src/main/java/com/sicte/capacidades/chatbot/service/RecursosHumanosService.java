@@ -16,4 +16,8 @@ public class RecursosHumanosService{
     public List<Chatbot> encontrarTodoRegistrosChatbot() {
         return (List<Chatbot>) chatbotRepository.findAll();
     }
+
+    public void actualizarDatos(Long id, String fechaHora, String estadoFinal, String observaciones) {
+        chatbotRepository.actualizarDatos(id, fechaHora, estadoFinal, observaciones);
+    }
 }
