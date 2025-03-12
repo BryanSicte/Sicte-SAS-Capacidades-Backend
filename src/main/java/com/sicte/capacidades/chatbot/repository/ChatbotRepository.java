@@ -11,33 +11,21 @@ import com.sicte.capacidades.chatbot.entity.Chatbot;
 
 @Repository
 public interface ChatbotRepository extends CrudRepository<Chatbot, String> {
-    public Chatbot findByregistro(String registro);
-
-    public Chatbot findBystage(String stage);
-
+    public Chatbot findByRegistro(String registro);
+    public Chatbot findByStage(String stage);
+    public Chatbot findByAceptoPolitica(String aceptoPolitica);
     public Chatbot findBynombreApellido(String nombreApellido);
-
-    public Chatbot findBycelular(String celular);
-
-    public Chatbot findByciudad(String ciudad);
-
-    public Chatbot findBycargo(String cargo);
-
-    public Chatbot findBydetalleCargo(String detalleCargo);
-
-    public Chatbot findByrespuestaFiltro1(String respuestaFiltro1);
-
-    public Chatbot findByrespuestaFiltro2(String respuestaFiltro2);
-
-    public Chatbot findByrespuestaFiltro3(String respuestaFiltro3);
-
-    public Chatbot findBydireccion(String direccion);
-
-    public Chatbot findByfechaHora(String fechaHora);
-
-    public Chatbot findByestadoFinal(String estadoFinal);
-
-    public Chatbot findByobservaciones(String observaciones);
+    public Chatbot findByCelular(String celular);
+    public Chatbot findByCiudad(String ciudad);
+    public Chatbot findByCargo(String cargo);
+    public Chatbot findByDetalleCargo(String detalleCargo);
+    public Chatbot findByRespuestaFiltro1(String respuestaFiltro1);
+    public Chatbot findByRespuestaFiltro2(String respuestaFiltro2);
+    public Chatbot findByRespuestaFiltro3(String respuestaFiltro3);
+    public Chatbot findByDireccion(String direccion);
+    public Chatbot findByFechaHora(String fechaHora);
+    public Chatbot findByEstadoFinal(String estadoFinal);
+    public Chatbot findByObservaciones(String observaciones);
 
     @Modifying
     @Transactional
