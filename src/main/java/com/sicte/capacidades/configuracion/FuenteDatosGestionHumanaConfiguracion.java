@@ -20,7 +20,8 @@ import jakarta.persistence.EntityManagerFactory;
 @EnableTransactionManagement
 @EnableJpaRepositories(
     basePackages = {
-        "com.sicte.capacidades.chatbot.repository"
+        "com.sicte.capacidades.chatbot.repository",
+        "com.sicte.capacidades.carnetizacion.repository"
     },
     entityManagerFactoryRef = "gestionHumanaEntityManager",
     transactionManagerRef = "gestionHumanaTransactionManager"
@@ -38,7 +39,8 @@ public class FuenteDatosGestionHumanaConfiguracion {
             EntityManagerFactoryBuilder builder, @Qualifier("gestionHumanaDataSource") DataSource dataSource) {
         return builder
                 .dataSource(dataSource)
-                .packages("com.sicte.capacidades.chatbot.entity")
+                .packages("com.sicte.capacidades.chatbot.entity",
+                "com.sicte.capacidades.carnetizacion.entity")
                 .persistenceUnit("gestion_humana")
                 .build();
     }
