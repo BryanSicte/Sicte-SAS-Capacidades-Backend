@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.sicte.capacidades.chatbot.dto.ActualizarDatos;
 import com.sicte.capacidades.chatbot.entity.Chatbot;
-import com.sicte.capacidades.chatbot.service.RecursosHumanosService;
+import com.sicte.capacidades.chatbot.service.ChatbotService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,10 +15,10 @@ import java.util.List;
 @CrossOrigin(origins = {"https://sictepowergmail.github.io/","https://BryanSicte.github.io","http://localhost:3000","https://bryanutria.github.io/"})
 @RestController
 @RequestMapping("/recursosHumanos")
-public class RecursosHumanosController {
+public class ChatbotController {
 
     @Autowired
-    private RecursosHumanosService recursosHumanosService;
+    private ChatbotService recursosHumanosService;
 
     @GetMapping("/RegistrosChatbot")
     public ResponseEntity<List<Chatbot>> getTodaRegistrosChatbot() {

@@ -9,7 +9,7 @@ import com.sicte.capacidades.chatbot.entity.Chatbot;
 import com.sicte.capacidades.chatbot.repository.ChatbotRepository;
 
 @Service
-public class RecursosHumanosService{
+public class ChatbotService{
     @Autowired
     ChatbotRepository chatbotRepository;
 
