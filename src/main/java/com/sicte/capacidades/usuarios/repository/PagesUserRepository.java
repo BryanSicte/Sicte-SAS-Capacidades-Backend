@@ -59,4 +59,5 @@ public interface PagesUserRepository extends CrudRepository<PagesUser, String> {
     public PagesUser findByDireccionComposicionMoviles(String direccionComposicionMoviles);
     public PagesUser findByDireccionCompras(String direccionCompras);
     public PagesUser findByParqueAutomotorMoviles(String parqueAutomotorMoviles);
+    public PagesUser findByGestionHumanaChatbot(String gestionHumanaChatbot);
 }

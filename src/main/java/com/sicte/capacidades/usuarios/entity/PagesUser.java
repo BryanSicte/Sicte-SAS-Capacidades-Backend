@@ -122,4 +122,6 @@ public class PagesUser {
     private String direccionCompras;
     @Column(name = "Parque Automotor Moviles")
     private String parqueAutomotorMoviles;
+    @Column(name = "Gestion Humana Chatbot")
+    private String gestionHumanaChatbot;
 }

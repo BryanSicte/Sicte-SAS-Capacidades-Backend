@@ -7,13 +7,13 @@ import com.sicte.capacidades.carnetizacion.entity.Carnetizacion;
 
 @Repository
 public interface CarnetizacionRepository extends CrudRepository<Carnetizacion, String> {
-    public Carnetizacion findByRegistro(String cedulaSupervisor);
-    public Carnetizacion findByStage(String nombreSupervisor);
-    public Carnetizacion findByAceptoPolitica(String cedulaTecnico);
-    public Carnetizacion findBynombreApellido(String nombreTecnico);
-    public Carnetizacion findByCelular(String tipoCarnet);
-    public Carnetizacion findByCiudad(String solicitud);
-    public Carnetizacion findByCargo(String foto);
-    public Carnetizacion findByDetalleCargo(String segmento);
-    public Carnetizacion findByRespuestaFiltro1(String estado);
+    public Carnetizacion findByCedulaSupervisor(String cedulaSupervisor);
+    public Carnetizacion findByNombreSupervisor(String nombreSupervisor);
+    public Carnetizacion findByCedulaTecnico(String cedulaTecnico);
+    public Carnetizacion findByNombreTecnico(String nombreTecnico);
+    public Carnetizacion findByTipoCarnet(String tipoCarnet);
+    public Carnetizacion findBySolicitud(String solicitud);
+    public Carnetizacion findByFoto(String foto);
+    public Carnetizacion findBySegmento(String segmento);
+    public Carnetizacion findByEstado(String estado);
 }
