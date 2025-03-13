@@ -27,4 +27,5 @@ public class RelacionPersonal {
     private String analistaLogistica;
     private String supervisorLogistica;
     private String facturacion;
+    private String auxiliar;
 }

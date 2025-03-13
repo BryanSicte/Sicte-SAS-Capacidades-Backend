@@ -24,4 +24,6 @@ public interface RelacionPersonalRepository extends CrudRepository<RelacionPerso
         public RelacionPersonal findBySupervisorLogistica(String supervisorLogistica);
 
         public RelacionPersonal findByFacturacion(String facturacion);
+
+        public RelacionPersonal findByAuxiliar(String auxiliar);
 }
