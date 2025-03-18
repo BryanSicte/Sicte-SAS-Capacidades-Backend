@@ -20,6 +20,7 @@ public class Chatbot {
     private Long id;
     private String registro;
     private String stage;
+    private String celularChat;
     private String aceptoPolitica;
     private String nombreApellido;
     private String celular;

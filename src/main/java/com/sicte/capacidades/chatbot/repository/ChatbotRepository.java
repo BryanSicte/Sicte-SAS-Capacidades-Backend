@@ -13,6 +13,7 @@ import com.sicte.capacidades.chatbot.entity.Chatbot;
 public interface ChatbotRepository extends CrudRepository<Chatbot, String> {
     public Chatbot findByRegistro(String registro);
     public Chatbot findByStage(String stage);
+    public Chatbot findByCelularChat(String celularChat);
     public Chatbot findByAceptoPolitica(String aceptoPolitica);
     public Chatbot findBynombreApellido(String nombreApellido);
     public Chatbot findByCelular(String celular);
