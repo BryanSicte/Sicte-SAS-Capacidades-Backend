@@ -30,11 +30,12 @@ public class ChatbotController {
     public ResponseEntity<String> actualizarDatosChatBot(@RequestBody ActualizarDatos request) {
         try {
             Long id = request.getId();
+            String cargo = request.getCargo();
             String fechaHora = request.getFechaHora();
             String estadoFinal = request.getEstadoFinal();
             String observaciones = request.getObservaciones();
 
-            recursosHumanosService.actualizarDatos(id, fechaHora, estadoFinal, observaciones);
+            recursosHumanosService.actualizarDatos(id, cargo, fechaHora, estadoFinal, observaciones);
 
             return ResponseEntity.ok("Datos actualizados correctamente");
         } catch (Exception e) {

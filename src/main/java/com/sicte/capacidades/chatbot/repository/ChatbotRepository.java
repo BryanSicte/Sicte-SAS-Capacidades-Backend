@@ -30,6 +30,6 @@ public interface ChatbotRepository extends CrudRepository<Chatbot, String> {
 
     @Modifying
     @Transactional
-    @Query("UPDATE Chatbot s SET s.fechaHora = :fechaHora, s.estadoFinal = :estadoFinal, s.observaciones = :observaciones WHERE s.id = :id")
-    void actualizarDatos(@Param("id") Long id, @Param("fechaHora") String fechaHora, @Param("estadoFinal") String estadoFinal, @Param("observaciones") String observaciones);
+    @Query("UPDATE Chatbot s SET s.cargo = :cargo, s.fechaHora = :fechaHora, s.estadoFinal = :estadoFinal, s.observaciones = :observaciones WHERE s.id = :id")
+    void actualizarDatos(@Param("id") Long id, @Param("cargo") String cargo, @Param("fechaHora") String fechaHora, @Param("estadoFinal") String estadoFinal, @Param("observaciones") String observaciones);
 }

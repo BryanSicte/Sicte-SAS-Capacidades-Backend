@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 public class ActualizarDatos {
     private Long id;
+    private String cargo;
     private String fechaHora;
     private String estadoFinal;
     private String observaciones;
@@ -20,6 +21,13 @@ public class ActualizarDatos {
     }
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getCargo() {
+        return cargo;
+    }
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
     }
 
     public String getFechaHora() {

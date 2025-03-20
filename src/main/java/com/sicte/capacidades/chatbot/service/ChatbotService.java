@@ -17,7 +17,7 @@ public class ChatbotService{
         return (List<Chatbot>) chatbotRepository.findAll();
     }
 
-    public void actualizarDatos(Long id, String fechaHora, String estadoFinal, String observaciones) {
-        chatbotRepository.actualizarDatos(id, fechaHora, estadoFinal, observaciones);
+    public void actualizarDatos(Long id, String cargo, String fechaHora, String estadoFinal, String observaciones) {
+        chatbotRepository.actualizarDatos(id, cargo, fechaHora, estadoFinal, observaciones);
     }
 }
