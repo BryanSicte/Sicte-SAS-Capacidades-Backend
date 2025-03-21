@@ -34,4 +34,10 @@ public class Chatbot {
     private String fechaHora;
     private String estadoFinal;
     private String observaciones;
+    private String fechaHoraInicial;
+    private String asistencia;
+    private String seleccion;
+    private String examenesMedicos;
+    private String contratacion;
+    private String estadoContratacion;
 }

@@ -12,7 +12,8 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-@CrossOrigin(origins = {"https://sictepowergmail.github.io/","https://BryanSicte.github.io","http://localhost:3000","https://bryanutria.github.io/"})
+@CrossOrigin(origins = { "https://sictepowergmail.github.io/", "https://BryanSicte.github.io", "http://localhost:3000",
+        "https://bryanutria.github.io/" })
 @RestController
 @RequestMapping("/recursosHumanos")
 public class ChatbotController {
@@ -34,8 +35,14 @@ public class ChatbotController {
             String fechaHora = request.getFechaHora();
             String estadoFinal = request.getEstadoFinal();
             String observaciones = request.getObservaciones();
+            String asistencia = request.getAsistencia();
+            String seleccion = request.getSeleccion();
+            String examenesMedicos = request.getExamenesMedicos();
+            String contratacion = request.getContratacion();
+            String estadoContratacion = request.getEstadoContratacion();
 
-            recursosHumanosService.actualizarDatos(id, cargo, fechaHora, estadoFinal, observaciones);
+            recursosHumanosService.actualizarDatos(id, cargo, fechaHora, estadoFinal, observaciones, asistencia,
+                    seleccion, examenesMedicos, contratacion, estadoContratacion);
 
             return ResponseEntity.ok("Datos actualizados correctamente");
         } catch (Exception e) {
