@@ -16,6 +16,8 @@ public interface ChatbotRepository extends CrudRepository<Chatbot, String> {
 
     public Chatbot findByStage(String stage);
 
+    public Chatbot findByFuente(String fuente);
+
     public Chatbot findByCelularChat(String celularChat);
 
     public Chatbot findByAceptoPolitica(String aceptoPolitica);
@@ -67,7 +69,7 @@ public interface ChatbotRepository extends CrudRepository<Chatbot, String> {
 
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO registros_chatbot (registro, fuente, stage, nombreApellido, celular, ciudad, cargo, fechaHora, fechaHoraInicial, estadoFinal) " +
+    @Query(value = "INSERT INTO Chatbot (registro, fuente, stage, nombreApellido, celular, ciudad, cargo, fechaHora, fechaHoraInicial, estadoFinal) " +
                "VALUES (:registro, :fuente, :stage, :nombreApellido, :celular, :ciudad, :cargo, :fechaHora, :fechaHoraInicial, :estadoFinal)", nativeQuery = true)
     void registrarDatos(@Param("registro") String registro, @Param("fuente") String fuente,
             @Param("stage") String stage, @Param("nombreApellido") String nombreApellido,

@@ -19,6 +19,7 @@ public class Chatbot {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String registro;
+    private String fuente;
     private String stage;
     private String celularChat;
     private String aceptoPolitica;
