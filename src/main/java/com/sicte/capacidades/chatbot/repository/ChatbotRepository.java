@@ -11,6 +11,7 @@ import com.sicte.capacidades.chatbot.entity.Chatbot;
 
 @Repository
 public interface ChatbotRepository extends CrudRepository<Chatbot, String> {
+
     public Chatbot findByRegistro(String registro);
 
     public Chatbot findByStage(String stage);
@@ -63,4 +64,14 @@ public interface ChatbotRepository extends CrudRepository<Chatbot, String> {
             @Param("asistencia") String asistencia, @Param("seleccion") String seleccion,
             @Param("examenesMedicos") String examenesMedicos, @Param("contratacion") String contratacion,
             @Param("estadoContratacion") String estadoContratacion);
+
+    @Modifying
+    @Transactional
+    @Query(value = "INSERT INTO chatbot (registro, fuente, stage, nombreApellido, celular, ciudad, cargo, fechaHora, fechaHoraInicial, estadoFinal) " +
+               "VALUES (:registro, :fuente, :stage, :nombreApellido, :celular, :ciudad, :cargo, :fechaHora, :fechaHoraInicial, :estadoFinal)", nativeQuery = true)
+    void registrarDatos(@Param("registro") String registro, @Param("fuente") String fuente,
+            @Param("stage") String stage, @Param("nombreApellido") String nombreApellido,
+            @Param("celular") String celular, @Param("ciudad") String ciudad,
+            @Param("cargo") String cargo, @Param("fechaHora") String fechaHora,
+            @Param("fechaHoraInicial") String fechaHoraInicial, @Param("estadoFinal") String estadoFinal);
 }
