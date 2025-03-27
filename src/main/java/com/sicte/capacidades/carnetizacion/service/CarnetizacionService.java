@@ -17,4 +17,8 @@ public class CarnetizacionService{
     public List<Carnetizacion> encontrarTodoRegistros() {
         return (List<Carnetizacion>) carnetizacionRepository.findAll();
     }
+
+    public Carnetizacion guardarRegistro(Carnetizacion registro) {
+        return carnetizacionRepository.save(registro);
+    }
 }
