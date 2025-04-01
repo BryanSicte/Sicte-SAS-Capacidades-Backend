@@ -41,6 +41,7 @@ public interface PagesUserRepository extends CrudRepository<PagesUser, String> {
     public PagesUser findByOperacionCumplimientoSlaFo(String operacionCumplimientoSlaFo);
     public PagesUser findByOperacionCumplimientoSlaHfc(String operacionCumplimientoSlaHfc);
     public PagesUser findByOperacionCorrectivoPreventivo(String operacionCorrectivoPreventivo);
+    public PagesUser findByOperacionRecursoOperaciones(String operacionRecursoOperaciones);
     public PagesUser findByOperacionSeguimientoMttoCentro(String operacionSeguimientoMttoCentro);
     public PagesUser findByOperacionSeguimientoOperaciones(String operacionSeguimientoOperaciones);
     public PagesUser findByOperacionSeguimientoSmu(String operacionSeguimientoSmu);

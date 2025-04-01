@@ -86,6 +86,8 @@ public class PagesUser {
     private String operacionCumplimientoSlaHfc;
     @Column(name = "Operacion Correctivo Preventivo")
     private String operacionCorrectivoPreventivo;
+    @Column(name = "Operacion Recurso Operaciones")
+    private String operacionRecursoOperaciones;
     @Column(name = "Operacion Seguimiento Mtto Centro")
     private String operacionSeguimientoMttoCentro;
     @Column(name = "Operacion Seguimiento Operaciones")
