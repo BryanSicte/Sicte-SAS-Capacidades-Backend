@@ -1,17 +1,23 @@
 package com.sicte.capacidades.carnetizacion.controller;
 
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import com.sicte.capacidades.drive.GoogleDriveService;
-import com.sicte.capacidades.carnetizacion.entity.Carnetizacion;
-import com.sicte.capacidades.carnetizacion.service.CarnetizacionService;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
+import com.sicte.capacidades.carnetizacion.entity.Carnetizacion;
+import com.sicte.capacidades.carnetizacion.service.CarnetizacionService;
+import com.sicte.capacidades.drive.GoogleDriveService;
 
 @CrossOrigin(origins = { "https://sictepowergmail.github.io/", "https://BryanSicte.github.io", "http://localhost:3000",
         "https://bryanutria.github.io/" })
@@ -51,5 +57,34 @@ public class CarnetizacionController {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al subir el archivo");
         }
+    }
+
+    @GetMapping("/ObtenerImagen")
+    public ResponseEntity<byte[]> getImage(@RequestParam String imageName) {
+        try {
+            // Busca la imagen en Google Drive
+            byte[] imageData = GoogleDriveService.getFileByName(imageName, folderId);
+
+            if (imageData == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            }
+
+            String contentType = getContentType(imageName);
+
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_TYPE, contentType)
+                    .body(imageData);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+    private String getContentType(String fileName) {
+        if (fileName.endsWith(".png")) {
+            return "image/png";
+        } else if (fileName.endsWith(".jpg") || fileName.endsWith(".jpeg")) {
+            return "image/jpeg";
+        }
+        return "application/octet-stream";
     }
 }
