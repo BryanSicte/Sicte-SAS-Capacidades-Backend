@@ -90,8 +90,10 @@ public class PagesUser {
     private String operacionRecursoOperaciones;
     @Column(name = "Operacion Seguimiento Mtto Centro")
     private String operacionSeguimientoMttoCentro;
-    @Column(name = "Operacion Seguimiento Operaciones")
-    private String operacionSeguimientoOperaciones;
+    @Column(name = "Operacion Seguimiento Operaciones Centro")
+    private String operacionSeguimientoOperacionesCentro;
+    @Column(name = "Operacion Seguimiento Operaciones Norte")
+    private String operacionSeguimientoOperacionesNorte;
     @Column(name = "Operacion Seguimiento Smu")
     private String operacionSeguimientoSmu;
     @Column(name = "Operacion Tecnico Smu")
