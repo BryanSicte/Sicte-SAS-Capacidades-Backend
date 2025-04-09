@@ -14,7 +14,7 @@ import jakarta.persistence.Table;
 @Table(name = "lconsum")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Lconsum {
+public class LconsumHistorico {
     // @Id
     // @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

@@ -5,63 +5,63 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sicte.capacidades.bodegaHistorico.entity.Kcnsmu;
-import com.sicte.capacidades.bodegaHistorico.entity.Kdevol;
-import com.sicte.capacidades.bodegaHistorico.entity.Kentinv;
-import com.sicte.capacidades.bodegaHistorico.entity.Kgprod;
-import com.sicte.capacidades.bodegaHistorico.entity.Ksalcon;
-import com.sicte.capacidades.bodegaHistorico.entity.Ksmprov;
-import com.sicte.capacidades.bodegaHistorico.entity.Lconsum;
-import com.sicte.capacidades.bodegaHistorico.repository.KcnsmuRepository;
-import com.sicte.capacidades.bodegaHistorico.repository.KdevolRepository;
-import com.sicte.capacidades.bodegaHistorico.repository.KentinvRepository;
-import com.sicte.capacidades.bodegaHistorico.repository.KgprodRepository;
-import com.sicte.capacidades.bodegaHistorico.repository.KsalconRepository;
-import com.sicte.capacidades.bodegaHistorico.repository.KsmprovRepository;
-import com.sicte.capacidades.bodegaHistorico.repository.LconsumRepository;
+import com.sicte.capacidades.bodegaHistorico.entity.KcnsmuHistorico;
+import com.sicte.capacidades.bodegaHistorico.entity.KdevolHistorico;
+import com.sicte.capacidades.bodegaHistorico.entity.KentinvHistorico;
+import com.sicte.capacidades.bodegaHistorico.entity.KgprodHistorico;
+import com.sicte.capacidades.bodegaHistorico.entity.KsalconHistorico;
+import com.sicte.capacidades.bodegaHistorico.entity.KsmprovHistorico;
+import com.sicte.capacidades.bodegaHistorico.entity.LconsumHistorico;
+import com.sicte.capacidades.bodegaHistorico.repository.KcnsmuHistoricoRepository;
+import com.sicte.capacidades.bodegaHistorico.repository.KdevolHistoricoRepository;
+import com.sicte.capacidades.bodegaHistorico.repository.KentinvHistoricoRepository;
+import com.sicte.capacidades.bodegaHistorico.repository.KgprodHistoricoRepository;
+import com.sicte.capacidades.bodegaHistorico.repository.KsalconHistoricoRepository;
+import com.sicte.capacidades.bodegaHistorico.repository.KsmprovHistoricoRepository;
+import com.sicte.capacidades.bodegaHistorico.repository.LconsumHistoricoRepository;
 
 @Service
 public class BodegaHistoricoService {
     @Autowired
-    KgprodRepository kgprodRepository;
+    KgprodHistoricoRepository kgprodHistoricoRepository;
     @Autowired
-    LconsumRepository lconsumRepository;
+    LconsumHistoricoRepository lconsumHistoricoRepository;
     @Autowired
-    KsalconRepository ksalconRepository;
+    KsalconHistoricoRepository ksalconHistoricoRepository;
     @Autowired
-    KdevolRepository kdevolRepository;
+    KdevolHistoricoRepository kdevolHistoricoRepository;
     @Autowired
-    KcnsmuRepository kcnsmuRepository;
+    KcnsmuHistoricoRepository kcnsmuHistoricoRepository;
     @Autowired
-    KentinvRepository kentinvRepository;
+    KentinvHistoricoRepository kentinvHistoricoRepository;
     @Autowired
-    KsmprovRepository ksmprovRepository;
+    KsmprovHistoricoRepository ksmprovHistoricoRepository;
 
-    public List<Kgprod> findAllKgprod() {
-        return (List<Kgprod>) kgprodRepository.findAll();
+    public List<KgprodHistorico> findAllKgprod() {
+        return (List<KgprodHistorico>) kgprodHistoricoRepository.findAll();
     }
 
-    public List<Lconsum> findAllLconsum() {
-        return (List<Lconsum>) lconsumRepository.findAll();
+    public List<LconsumHistorico> findAllLconsum() {
+        return (List<LconsumHistorico>) lconsumHistoricoRepository.findAll();
     }
 
-    public List<Ksalcon> findAllKsalcon() {
-        return (List<Ksalcon>) ksalconRepository.findAll();
+    public List<KsalconHistorico> findAllKsalcon() {
+        return (List<KsalconHistorico>) ksalconHistoricoRepository.findAll();
     }
 
-    public List<Kdevol> findAllKdevol() {
-        return (List<Kdevol>) kdevolRepository.findAll();
+    public List<KdevolHistorico> findAllKdevol() {
+        return (List<KdevolHistorico>) kdevolHistoricoRepository.findAll();
     }
 
-    public List<Kcnsmu> findAllKcnsmu() {
-        return (List<Kcnsmu>) kcnsmuRepository.findAll();
+    public List<KcnsmuHistorico> findAllKcnsmu() {
+        return (List<KcnsmuHistorico>) kcnsmuHistoricoRepository.findAll();
     }
 
-    public List<Kentinv> findAllKentinv() {
-        return (List<Kentinv>) kentinvRepository.findAll();
+    public List<KentinvHistorico> findAllKentinv() {
+        return (List<KentinvHistorico>) kentinvHistoricoRepository.findAll();
     }
 
-    public List<Ksmprov> findAllKsmprov() {
-        return (List<Ksmprov>) ksmprovRepository.findAll();
+    public List<KsmprovHistorico> findAllKsmprov() {
+        return (List<KsmprovHistorico>) ksmprovHistoricoRepository.findAll();
     }
 }

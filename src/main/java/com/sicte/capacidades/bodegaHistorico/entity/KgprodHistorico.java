@@ -14,7 +14,7 @@ import jakarta.persistence.Table;
 @Table(name = "kgprod")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Kgprod {
+public class KgprodHistorico {
     // @Id
     // @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

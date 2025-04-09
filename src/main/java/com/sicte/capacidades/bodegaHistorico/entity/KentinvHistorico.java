@@ -11,10 +11,10 @@ import jakarta.persistence.Table;
 
 @Data
 @Entity
-@Table(name = "ksalcon")
+@Table(name = "kentinv")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Ksalcon {
+public class KentinvHistorico {
     // @Id
     // @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -23,32 +23,30 @@ public class Ksalcon {
     private String llave;
     @Column(name = "fecha")
     private String fecha;
-    @Column(name = "codconsumidor")
-    private String codconsumidor;
-    @Column(name = "nombre")
-    private String nombre;
+    @Column(name = "nrocompro_c")
+    private String nrocomproC;
+    @Column(name = "nrosolmat")
+    private String nrosolmat;
     @Column(name = "producto")
     private String producto;
     @Column(name = "descrip")
     private String descrip;
     @Column(name = "unimed")
     private String unimed;
-    @Column(name = "cantidad")
-    private String cantidad;
-    @Column(name = "codproyecto")
-    private String codproyecto;
-    @Column(name = "nroapoyo")
-    private String nroapoyo;
-    @Column(name = "observ")
-    private String observ;
-    @Column(name = "ind_instaladores")
-    private String indInstaladores;
-    @Column(name = "nom_recibe")
-    private String nomRecibe;
-    @Column(name = "hora_sal")
-    private String horaSal;
-    @Column(name = "x1")
-    private String x1;
+    @Column(name = "canrecib")
+    private String canrecib;
+    @Column(name = "conciliacion")
+    private String conciliacion;
+    @Column(name = "facturacion")
+    private String facturacion;
+    @Column(name = "bodres")
+    private String bodres;
+    @Column(name = "bodove")
+    private String bodove;
+    @Column(name = "bodaco")
+    private String bodaco;
+    @Column(name = "nombre")
+    private String nombre;
     @Column(name = "Fecha descarga")
     private String fechaDescarga;
     @Column(name = "Bodega")

@@ -11,36 +11,34 @@ import jakarta.persistence.Table;
 
 @Data
 @Entity
-@Table(name = "ksmprov")
+@Table(name = "kdevol")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Ksmprov {
+public class KdevolHistorico {
     // @Id
     // @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private String id;
     @Column(name = "llave")
     private String llave;
-    @Column(name = "fecha")
+    @Column(name = "Fecha")
     private String fecha;
-    @Column(name = "codproveedor")
-    private String codproveedor;
-    @Column(name = "nombre")
-    private String nombre;
-    @Column(name = "producto")
+    @Column(name = "Cod consumidor")
+    private String codConsumidor;
+    @Column(name = "Nombre consumidor")
+    private String nombreConsumidor;
+    @Column(name = "Producto")
     private String producto;
-    @Column(name = "descrip")
-    private String descrip;
-    @Column(name = "unimed")
-    private String unimed;
-    @Column(name = "cantidad")
+    @Column(name = "Descripción")
+    private String descripcion;
+    @Column(name = "U.M.")
+    private String um;
+    @Column(name = "Cantidad")
     private String cantidad;
-    @Column(name = "observacion")
+    @Column(name = "Proyecto")
+    private String proyecto;
+    @Column(name = "Observación")
     private String observacion;
-    @Column(name = "usuario")
-    private String usuario;
-    @Column(name = "fechau")
-    private String fechau;
     @Column(name = "Fecha descarga")
     private String fechaDescarga;
     @Column(name = "Bodega")

@@ -11,10 +11,10 @@ import jakarta.persistence.Table;
 
 @Data
 @Entity
-@Table(name = "kentinv")
+@Table(name = "ksmprov")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Kentinv {
+public class KsmprovHistorico {
     // @Id
     // @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -23,30 +23,24 @@ public class Kentinv {
     private String llave;
     @Column(name = "fecha")
     private String fecha;
-    @Column(name = "nrocompro_c")
-    private String nrocomproC;
-    @Column(name = "nrosolmat")
-    private String nrosolmat;
+    @Column(name = "codproveedor")
+    private String codproveedor;
+    @Column(name = "nombre")
+    private String nombre;
     @Column(name = "producto")
     private String producto;
     @Column(name = "descrip")
     private String descrip;
     @Column(name = "unimed")
     private String unimed;
-    @Column(name = "canrecib")
-    private String canrecib;
-    @Column(name = "conciliacion")
-    private String conciliacion;
-    @Column(name = "facturacion")
-    private String facturacion;
-    @Column(name = "bodres")
-    private String bodres;
-    @Column(name = "bodove")
-    private String bodove;
-    @Column(name = "bodaco")
-    private String bodaco;
-    @Column(name = "nombre")
-    private String nombre;
+    @Column(name = "cantidad")
+    private String cantidad;
+    @Column(name = "observacion")
+    private String observacion;
+    @Column(name = "usuario")
+    private String usuario;
+    @Column(name = "fechau")
+    private String fechau;
     @Column(name = "Fecha descarga")
     private String fechaDescarga;
     @Column(name = "Bodega")
