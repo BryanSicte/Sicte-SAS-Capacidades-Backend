@@ -24,7 +24,7 @@ import jakarta.persistence.EntityManagerFactory;
 public class FuenteDatosBodegaHistoricoConfiguracion {
 
     @Bean(name = "bodegaHistoricoDataSource")
-    @ConfigurationProperties(prefix = "spring.datasource.bodegaHistorico")
+    @ConfigurationProperties(prefix = "spring.datasource.bodegahistorico")
     public DataSource bodegaHistoricoDataSource() {
         return DataSourceBuilder.create().build();
     }
