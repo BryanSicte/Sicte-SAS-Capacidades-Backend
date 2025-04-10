@@ -45,7 +45,7 @@ public class FuenteDatosBodegaHistoricoConfiguracion {
         return builder
                 .dataSource(dataSource)
                 .packages("com.sicte.capacidades.bodegaHistorico.entity")
-                .persistenceUnit("bodegaHistorico")
+                .persistenceUnit("bodega_historico")
                 .properties(properties)
                 .build();
     }

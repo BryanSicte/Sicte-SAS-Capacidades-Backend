@@ -1,5 +1,8 @@
 package com.sicte.capacidades.configuracion;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -44,6 +47,13 @@ public class FuenteDatosAplicativoConfiguracion {
     @Bean(name = "aplicativoEntityManager")
     public LocalContainerEntityManagerFactoryBean aplicativoEntityManagerFactory(
             EntityManagerFactoryBuilder builder, @Qualifier("aplicativoDataSource") DataSource dataSource) {
+
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
+        properties.put("hibernate.hbm2ddl.auto", "none"); 
+        properties.put("hibernate.show_sql", true);
+        properties.put("hibernate.format_sql", true);
+
         return builder
                 .dataSource(dataSource)
                 .packages("com.sicte.capacidades.capacidad.entity",
@@ -53,6 +63,7 @@ public class FuenteDatosAplicativoConfiguracion {
                           "com.sicte.capacidades.solicitudMaterial.entity",
                           "com.sicte.capacidades.inventarioMaterial.entity")
                 .persistenceUnit("aplicativo_capacidades")
+                .properties(properties)
                 .build();
     }
 
