@@ -1,5 +1,8 @@
 package com.sicte.capacidades.configuracion;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -20,16 +23,16 @@ import jakarta.persistence.EntityManagerFactory;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
-    basePackages = {
-        "com.sicte.capacidades.capacidad.repository",
-        "com.sicte.capacidades.supervision.repository",
-        "com.sicte.capacidades.usuarios.repository",
-        "com.sicte.capacidades.reporteMaterialFerretero.repository",
-        "com.sicte.capacidades.solicitudMaterial.repository",
-        "com.sicte.capacidades.inventarioMaterial.repository"
-    },
-    entityManagerFactoryRef = "aplicativoEntityManager",
-    transactionManagerRef = "aplicativoTransactionManager"
+        basePackages = {
+            "com.sicte.capacidades.capacidad.repository",
+            "com.sicte.capacidades.supervision.repository",
+            "com.sicte.capacidades.usuarios.repository",
+            "com.sicte.capacidades.reporteMaterialFerretero.repository",
+            "com.sicte.capacidades.solicitudMaterial.repository",
+            "com.sicte.capacidades.inventarioMaterial.repository"
+        },
+        entityManagerFactoryRef = "aplicativoEntityManager",
+        transactionManagerRef = "aplicativoTransactionManager"
 )
 public class FuenteDatosAplicativoConfiguracion {
 
@@ -45,15 +48,19 @@ public class FuenteDatosAplicativoConfiguracion {
     public LocalContainerEntityManagerFactoryBean aplicativoEntityManagerFactory(
             EntityManagerFactoryBuilder builder, @Qualifier("aplicativoDataSource") DataSource dataSource) {
 
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
+
         return builder
                 .dataSource(dataSource)
                 .packages("com.sicte.capacidades.capacidad.entity",
-                          "com.sicte.capacidades.supervision.entity",
-                          "com.sicte.capacidades.usuarios.entity",
-                          "com.sicte.capacidades.reporteMaterialFerretero.entity",
-                          "com.sicte.capacidades.solicitudMaterial.entity",
-                          "com.sicte.capacidades.inventarioMaterial.entity")
+                        "com.sicte.capacidades.supervision.entity",
+                        "com.sicte.capacidades.usuarios.entity",
+                        "com.sicte.capacidades.reporteMaterialFerretero.entity",
+                        "com.sicte.capacidades.solicitudMaterial.entity",
+                        "com.sicte.capacidades.inventarioMaterial.entity")
                 .persistenceUnit("aplicativo_capacidades")
+                .properties(properties)
                 .build();
     }
 
