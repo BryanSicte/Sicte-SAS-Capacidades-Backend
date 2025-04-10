@@ -21,8 +21,10 @@ import jakarta.persistence.EntityManagerFactory;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = {
-    "com.sicte.capacidades.bodegaHistorico.repository"}, entityManagerFactoryRef = "bodegaHistoricoEntityManager", transactionManagerRef = "bodegaHistoricoTransactionManager")
+@EnableJpaRepositories(
+        basePackages = {"com.sicte.capacidades.bodegaHistorico.repository"},
+        entityManagerFactoryRef = "bodegaHistoricoEntityManager",
+        transactionManagerRef = "bodegaHistoricoTransactionManager")
 
 public class FuenteDatosBodegaHistoricoConfiguracion {
 
