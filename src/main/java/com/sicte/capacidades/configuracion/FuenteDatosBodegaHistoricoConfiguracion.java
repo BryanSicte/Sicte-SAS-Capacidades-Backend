@@ -1,8 +1,5 @@
 package com.sicte.capacidades.configuracion;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -36,17 +33,10 @@ public class FuenteDatosBodegaHistoricoConfiguracion {
     public LocalContainerEntityManagerFactoryBean bodegaHistoricoEntityManagerFactory(
             EntityManagerFactoryBuilder builder, @Qualifier("bodegaHistoricoDataSource") DataSource dataSource) {
 
-        Map<String, Object> properties = new HashMap<>();
-        properties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
-        properties.put("hibernate.hbm2ddl.auto", "none"); 
-        properties.put("hibernate.show_sql", true);
-        properties.put("hibernate.format_sql", true);
-
         return builder
                 .dataSource(dataSource)
                 .packages("com.sicte.capacidades.bodegaHistorico.entity")
                 .persistenceUnit("bodega_historico")
-                .properties(properties)
                 .build();
     }
 
