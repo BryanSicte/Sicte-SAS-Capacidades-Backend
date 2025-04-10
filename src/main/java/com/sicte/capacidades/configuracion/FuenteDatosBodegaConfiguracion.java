@@ -39,7 +39,7 @@ public class FuenteDatosBodegaConfiguracion {
             EntityManagerFactoryBuilder builder, @Qualifier("bodegaDataSource") DataSource dataSource) {
 
         Map<String, Object> properties = new HashMap<>();
-        properties.put("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
+        properties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
 
         return builder
                 .dataSource(dataSource)
